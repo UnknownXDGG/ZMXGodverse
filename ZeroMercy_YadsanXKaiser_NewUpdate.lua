@@ -866,7 +866,7 @@ local function createLocalNameTag(char)
 	local lbl = Instance.new("TextLabel")
 	lbl.Size = UDim2.new(1, 0, 1, 0)
 	lbl.BackgroundTransparency = 1
-	lbl.Text = "☠️ KAISER X ZM ON TOP! 👑"
+	lbl.Text = "☠️ JAMES LEE X ZM ON TOP! 👑"
 	lbl.TextColor3 = Color3.fromRGB(255, 230, 100)
 	lbl.Font = Enum.Font.GothamBlack
 	lbl.TextScaled = true
@@ -966,7 +966,7 @@ SideBtn.MouseLeave:Connect(function() TweenService:Create(SideBtn, TweenInfo.new
 -- =====================================================
 task.spawn(function()
 	task.wait(3)
-	local loadMsg = " JAMES-LEE 😈 SPAMMER HAS LOADED ZERO MERCY ON TOP ☠️🏴 MADE BY Yadsan_GodVerse 🔥"
+	local loadMsg = " KAISER PAPA😈 SPAMMER HAS LOADED ZERO MERCY ON TOP ☠️🏴 MADE BY Yadsan_GodVerse 🔥"
 	for attempt = 1, 5 do
 		if sendChat(loadMsg) then
 			break
