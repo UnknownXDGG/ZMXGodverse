@@ -18,7 +18,7 @@ local parentGui = (gethui and gethui()) or game:GetService("CoreGui")
 
 -- Purani GUI Cleanup
 pcall(function()
-    local old = parentGui:FindFirstChild("ATZSpammer")
+    local old = parentGui:FindFirstChild("KaiserPapaxZM")
     if old then old:Destroy() end
 end)
 
@@ -59,7 +59,7 @@ SideBtn.Name = "SideButton"
 SideBtn.Size = UDim2.new(0, 150, 0, 45)
 SideBtn.Position = UDim2.new(0, 20, 0.5, -22)
 SideBtn.BackgroundColor3 = Color3.fromRGB(140, 60, 255)
-SideBtn.Text = "☠️ Kaiser Papa Spammer"
+SideBtn.Text = "☠️ Kaiser Papa"
 SideBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 SideBtn.Font = Enum.Font.GothamBold
 SideBtn.TextSize = 15
@@ -129,7 +129,7 @@ local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, -80, 0, 35)
 Title.Position = UDim2.new(0, 15, 0, 10)
 Title.BackgroundTransparency = 1
-Title.Text = "🔥 ZM SPAMMER VIP 🔥"
+Title.Text = "☠️ KaiserPapaxZM Spammer VIP 🔥"
 Title.TextColor3 = Color3.fromRGB(220, 100, 255)
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Font = Enum.Font.GothamBlack
@@ -991,7 +991,7 @@ local roasts = {
 --              PREFIX POOL
 -- =====================================================
 local randomPrefixes = {
-    "---", "@@@", "_", ":o_O:", "(!)", "🔥", "💀", "😈", "[ATZ]",
+    "---", "@@@", "_", ":o_O:", "(!)", "🔥", "💀", "😈", "[Kaiser Papa]",
     ">>", "★彡", "⚡", "☠️", "_____Pro", "______", "____Pro",
     "👑", "😹", "¥¥¥", "\\\\", "$$", "×", "▬▬", "★★★", "▓▓▓",
     "›››", "=>", ":", ";", "!", "©", "®", "™", "卍", "☯",
@@ -1094,7 +1094,7 @@ StartBtn.MouseButton1Click:Connect(startSpam)
 StopBtn.MouseButton1Click:Connect(stopSpam)
 
 -- =====================================================
---        LOCAL PLAYER VIP NAME TAG (ATZ ON TOP)
+--        LOCAL PLAYER VIP NAME TAG (KAISERxZM ON TOP)
 -- =====================================================
 local function createLocalNameTag(char)
     local head = char:WaitForChild("Head", 10)
@@ -1137,7 +1137,7 @@ local function createLocalNameTag(char)
     local lbl = Instance.new("TextLabel")
     lbl.Size = UDim2.new(1, 0, 1, 0)
     lbl.BackgroundTransparency = 1
-    lbl.Text = "👑 KAISER X ZM ON TOP! 👑"
+    lbl.Text = "☠️ KAISER X ZM ON TOP! 👑"
     lbl.TextColor3 = Color3.fromRGB(255, 230, 100)
     lbl.Font = Enum.Font.GothamBlack
     lbl.TextScaled = true
@@ -1238,7 +1238,7 @@ SideBtn.MouseLeave:Connect(function() TweenService:Create(SideBtn, TweenInfo.new
 -- =====================================================
 task.spawn(function()
     task.wait(3)
-    local loadMsg = "___________________ Ｊᴀᴍᴇs Ｌᴇᴇ 😈 Ｓᴘᴀᴍᴍᴇʀ ʜᴀs ʟᴏᴀᴅᴇᴅ Ｚᴇʀᴏ Ｍᴇʀᴄʏ  Oɴ Tᴏᴘ ☠️🏴 Ｍᴀᴅᴇ ʙʏ Ｙᴀᴅsᴀɴ XD 🔥_______________________________________________"
+    local loadMsg = "______________ Ｊᴀᴍᴇs Ｌᴇᴇ 😈 Ｓᴘᴀᴍᴍᴇʀ ʜᴀs ʟᴏᴀᴅᴇᴅ Ｚᴇʀᴏ Ｍᴇʀᴄʏ  Oɴ Tᴏᴘ ☠️🏴 Ｍᴀᴅᴇ ʙʏ Ｙᴀᴅsᴀɴ XD 🔥_______________________"
     for attempt = 1, 5 do
         local ok = pcall(function()
             local channels = TextChatService:FindFirstChild("TextChannels")
