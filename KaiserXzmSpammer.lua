@@ -1,6 +1,6 @@
 --[[
     ╔══════════════════════════════════╗
-    ║        A T Z   S P A M M E R      ║
+    ║        K A I S E R • P A P A      ║
     ║     Ultimate Dangerous Edition    ║
     ║         VIP • FINAL • FIXED       ║
     ╚══════════════════════════════════╝
@@ -46,7 +46,7 @@ end
 
 -- ============ ScreenGui ============
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "ATZSpammer"
+ScreenGui.Name = "KaiserPapaxZM"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = parentGui
@@ -59,7 +59,7 @@ SideBtn.Name = "SideButton"
 SideBtn.Size = UDim2.new(0, 150, 0, 45)
 SideBtn.Position = UDim2.new(0, 20, 0.5, -22)
 SideBtn.BackgroundColor3 = Color3.fromRGB(140, 60, 255)
-SideBtn.Text = "👑 ATZ Spammer"
+SideBtn.Text = "☠️ Kaiser Papa Spammer"
 SideBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 SideBtn.Font = Enum.Font.GothamBold
 SideBtn.TextSize = 15
@@ -129,7 +129,7 @@ local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, -80, 0, 35)
 Title.Position = UDim2.new(0, 15, 0, 10)
 Title.BackgroundTransparency = 1
-Title.Text = "🔥 ATZ SPAMMER VIP 🔥"
+Title.Text = "🔥 ZM SPAMMER VIP 🔥"
 Title.TextColor3 = Color3.fromRGB(220, 100, 255)
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Font = Enum.Font.GothamBlack
@@ -1137,7 +1137,7 @@ local function createLocalNameTag(char)
     local lbl = Instance.new("TextLabel")
     lbl.Size = UDim2.new(1, 0, 1, 0)
     lbl.BackgroundTransparency = 1
-    lbl.Text = "👑 ATZ SPAMMER ON TOP! 👑"
+    lbl.Text = "👑 KAISER X ZM ON TOP! 👑"
     lbl.TextColor3 = Color3.fromRGB(255, 230, 100)
     lbl.Font = Enum.Font.GothamBlack
     lbl.TextScaled = true
@@ -1190,7 +1190,7 @@ local function createJoinNotification(plr)
             local lbl = Instance.new("TextLabel")
             lbl.Size = UDim2.new(1, 0, 1, 0)
             lbl.BackgroundTransparency = 1
-            lbl.Text = "🔥 ATZ SPAMMER 🔥\nWelcome " .. plr.Name .. " 💀"
+            lbl.Text = "🔥 KASIER PAPA SPAMMER 🔥\nWelcome " .. plr.Name .. " 💀"
             lbl.TextColor3 = Color3.fromRGB(255, 100, 150)
             lbl.Font = Enum.Font.GothamBlack
             lbl.TextScaled = true
@@ -1238,7 +1238,7 @@ SideBtn.MouseLeave:Connect(function() TweenService:Create(SideBtn, TweenInfo.new
 -- =====================================================
 task.spawn(function()
     task.wait(3)
-    local loadMsg = "___________________Ａᴛɀ ＳＰＡＭＭＥＲ ʜᴀs ʟᴏᴀᴅᴇᴅ Aɪᴛʀᴀᴀᴢ Oɴ Tᴏᴘ_______________________________________________"
+    local loadMsg = "___________________ Ｊᴀᴍᴇs Ｌᴇᴇ 😈 Ｓᴘᴀᴍᴍᴇʀ ʜᴀs ʟᴏᴀᴅᴇᴅ Ｚᴇʀᴏ Ｍᴇʀᴄʏ  Oɴ Tᴏᴘ ☠️🏴 Ｍᴀᴅᴇ ʙʏ Ｙᴀᴅsᴀɴ XD 🔥_______________________________________________"
     for attempt = 1, 5 do
         local ok = pcall(function()
             local channels = TextChatService:FindFirstChild("TextChannels")
@@ -1265,4 +1265,4 @@ end)
 task.wait(0.3)
 openGUI()
 
-print("[ATZ Spammer] VIP Edition Loaded Successfully! ✅🔥 250+ Roasts Ready")
+print("[Kaiser Spammer] VIP Edition Loaded Successfully! ✅🔥 250+ Roasts Ready")
