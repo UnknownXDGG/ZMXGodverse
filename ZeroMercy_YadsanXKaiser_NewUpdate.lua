@@ -1,341 +1,209 @@
 --==================================================
--- ZERO MERCY ON TOP | YADSAN X KAISER INTRO V4
--- BLACK & GREY THEME
+-- ALLIED INTRO | LOOKISM THEME (Black / White / Taupe)
+-- Pinwheel emblem built from 6 blades, 1 shaded (Daniel Park)
 --==================================================
 do
 	local Players = game:GetService("Players")
 	local TweenService = game:GetService("TweenService")
-	local Player = Players.LocalPlayer
-	local PlayerGui = Player:WaitForChild("PlayerGui")
+	local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 
 	-- SETTINGS
 	local DURATION = 6
-	local LOGO_ASSET_ID = "rbxassetid://0" -- Put your uploaded Roblox Decal/Image ID for your logo here
-	local GREY = Color3.fromRGB(145, 145, 152)
-	local LIGHT_GREY = Color3.fromRGB(235, 235, 240)
-	local DARK_GREY = Color3.fromRGB(68, 68, 74)
-	local BLACK = Color3.fromRGB(6, 6, 8)
+	local WHITE = Color3.fromRGB(240, 240, 244)
+	local TAUPE = Color3.fromRGB(150, 142, 126)
+	local GREY = Color3.fromRGB(120, 120, 128)
+	local BLACK = Color3.fromRGB(0, 0, 0)
 
-	-- CLEANUP
-	local old = PlayerGui:FindFirstChild("ZERO_MERCY_YADSAN_KAISER")
+	local old = PlayerGui:FindFirstChild("ALLIED_INTRO")
 	if old then old:Destroy() end
 
-	-- SCREEN
 	local Gui = Instance.new("ScreenGui")
-	Gui.Name = "ZERO_MERCY_YADSAN_KAISER"
+	Gui.Name = "ALLIED_INTRO"
 	Gui.IgnoreGuiInset = true
 	Gui.ResetOnSpawn = false
 	Gui.DisplayOrder = 999
 	Gui.Parent = PlayerGui
 
-	-- BACKGROUND
 	local BG = Instance.new("Frame")
 	BG.Size = UDim2.fromScale(1, 1)
 	BG.BackgroundColor3 = BLACK
 	BG.BorderSizePixel = 0
-	BG.ClipsDescendants = true
 	BG.Parent = Gui
 
-	local BGGradient = Instance.new("UIGradient")
-	BGGradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.fromRGB(22, 22, 26)),
-		ColorSequenceKeypoint.new(0.5, BLACK),
-		ColorSequenceKeypoint.new(1, Color3.fromRGB(16, 16, 20))
-	})
-	BGGradient.Rotation = 90
-	BGGradient.Parent = BG
+	local function Tween(obj, t, props, repeatCount, style)
+		local info = TweenInfo.new(t, style or Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, repeatCount or 0)
+		local tw = TweenService:Create(obj, info, props)
+		tw:Play()
+		return tw
+	end
 
-	-- RESPONSIVE PORTAL
+	-- PORTAL (square, responsive)
 	local Portal = Instance.new("Frame")
-	Portal.Name = "Portal"
 	Portal.AnchorPoint = Vector2.new(0.5, 0.5)
-	Portal.Position = UDim2.fromScale(0.5, 0.37)
-	Portal.Size = UDim2.fromOffset(300, 300)
+	Portal.Position = UDim2.fromScale(0.5, 0.4)
 	Portal.BackgroundTransparency = 1
 	Portal.Parent = BG
 
-	local function ResizePortal()
-		local camera = workspace.CurrentCamera
-		if not camera then return end
-
-		local viewport = camera.ViewportSize
-		local diameter = math.floor(math.min(viewport.X, viewport.Y) * 0.78)
-
-		Portal.Size = UDim2.fromOffset(diameter, diameter)
+	local function Resize()
+		local cam = workspace.CurrentCamera
+		if not cam then return end
+		local v = cam.ViewportSize
+		local d = math.floor(math.min(v.X, v.Y) * 0.55)
+		Portal.Size = UDim2.fromOffset(d, d)
 	end
-
-	ResizePortal()
-
-	local camConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(ResizePortal)
+	Resize()
 	local vpConn
 	if workspace.CurrentCamera then
-		vpConn = workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(ResizePortal)
+		vpConn = workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(Resize)
 	end
 
-	-- TWEEN HELPER
-	local function Tween(obj, duration, properties, repeatCount)
-		local info = TweenInfo.new(
-			duration,
-			Enum.EasingStyle.Sine,
-			Enum.EasingDirection.InOut,
-			repeatCount or 0
-		)
-
-		local animation = TweenService:Create(obj, info, properties)
-		animation:Play()
-		return animation
+	local function Bar(parent, x, y, w, h, rot, color)
+		local f = Instance.new("Frame")
+		f.AnchorPoint = Vector2.new(0.5, 0.5)
+		f.Position = UDim2.fromScale(x, y)
+		f.Size = UDim2.fromScale(w, h)
+		f.Rotation = rot
+		f.BackgroundColor3 = color
+		f.BorderSizePixel = 0
+		f.Parent = parent
+		return f
 	end
 
-	-- CIRCLE CREATOR
-	local function Ring(parent, size, color, thickness, transparency)
-		local circle = Instance.new("Frame")
-		circle.AnchorPoint = Vector2.new(0.5, 0.5)
-		circle.Position = UDim2.fromScale(0.5, 0.5)
-		circle.Size = UDim2.fromScale(size, size)
-		circle.BackgroundTransparency = 1
-		circle.Parent = parent
+	-- OUTER RING (thin)
+	local Ring = Instance.new("Frame")
+	Ring.AnchorPoint = Vector2.new(0.5, 0.5)
+	Ring.Position = UDim2.fromScale(0.5, 0.5)
+	Ring.Size = UDim2.fromScale(1.15, 1.15)
+	Ring.BackgroundTransparency = 1
+	Ring.Parent = Portal
+	Instance.new("UICorner", Ring).CornerRadius = UDim.new(1, 0)
+	local RingStroke = Instance.new("UIStroke")
+	RingStroke.Color = GREY
+	RingStroke.Thickness = 1
+	RingStroke.Transparency = 0.5
+	RingStroke.Parent = Ring
+	Tween(RingStroke, 1.8, { Transparency = 0.9 }, -1)
 
-		local corner = Instance.new("UICorner")
-		corner.CornerRadius = UDim.new(1, 0)
-		corner.Parent = circle
+	-- EMBLEM: rotating layer holding 6 blades
+	local Emblem = Instance.new("Frame")
+	Emblem.AnchorPoint = Vector2.new(0.5, 0.5)
+	Emblem.Position = UDim2.fromScale(0.5, 0.5)
+	Emblem.Size = UDim2.fromScale(1, 1)
+	Emblem.BackgroundTransparency = 1
+	Emblem.Parent = Portal
+	Tween(Emblem, 30, { Rotation = 360 }, -1, Enum.EasingStyle.Linear)
 
-		local stroke = Instance.new("UIStroke")
-		stroke.Color = color
-		stroke.Thickness = thickness
-		stroke.Transparency = transparency or 0.15
-		stroke.Parent = circle
+	local blades = {}
+	for i = 1, 6 do
+		local blade = Instance.new("Frame")
+		blade.AnchorPoint = Vector2.new(0.5, 0.5)
+		blade.Position = UDim2.fromScale(0.5, 0.5)
+		blade.Size = UDim2.fromScale(1, 1)
+		blade.BackgroundTransparency = 1
+		blade.Rotation = (i - 1) * 60
+		blade.Parent = Emblem
 
-		return circle
+		local color = (i == 3) and TAUPE or WHITE -- Daniel's shaded segment
+
+		-- shaft + sharp arrow head (swirled slightly off-center)
+		Bar(blade, 0.55, 0.26, 0.075, 0.30, 0, color)
+		Bar(blade, 0.52, 0.12, 0.060, 0.20, 38, color)
+		Bar(blade, 0.60, 0.12, 0.060, 0.20, -22, color)
+		-- dark gap line to separate blades
+		Bar(blade, 0.50, 0.30, 0.012, 0.38, 0, BLACK)
+
+		blades[i] = blade
+		-- assemble animation start state
+		blade.Size = UDim2.fromScale(0.2, 0.2)
+		task.delay(0.12 * i, function()
+			Tween(blade, 0.6, { Size = UDim2.fromScale(1, 1) }, 0, Enum.EasingStyle.Back)
+		end)
 	end
 
-	-- ROTATING LAYER
-	local function RotatingLayer(duration, direction)
-		local layer = Instance.new("Frame")
-		layer.AnchorPoint = Vector2.new(0.5, 0.5)
-		layer.Position = UDim2.fromScale(0.5, 0.5)
-		layer.Size = UDim2.fromScale(1, 1)
-		layer.BackgroundTransparency = 1
-		layer.Parent = Portal
-
-		Tween(layer, duration, {
-			Rotation = direction * 360
-		}, -1)
-
-		return layer
-	end
-
-	-- OUTER RINGS
-	local OuterLayer = RotatingLayer(35, 1)
-	Ring(OuterLayer, 0.98, DARK_GREY, 1, 0.2)
-	Ring(OuterLayer, 0.91, GREY, 1, 0.35)
-
-	-- SECOND ROTATING LAYER
-	local SecondLayer = RotatingLayer(24, -1)
-	Ring(SecondLayer, 0.80, GREY, 2, 0.12)
-	Ring(SecondLayer, 0.73, DARK_GREY, 1, 0.2)
-
-	-- THIRD ROTATING LAYER
-	local ThirdLayer = RotatingLayer(15, 1)
-	Ring(ThirdLayer, 0.61, LIGHT_GREY, 2, 0.1)
-	Ring(ThirdLayer, 0.53, GREY, 1, 0.2)
-
-	-- GEOMETRIC POLYGON CREATOR
-	local function Polygon(parent, sides, radius, color)
-		for i = 1, sides do
-			local a1 = ((i - 1) / sides) * math.pi * 2
-			local a2 = (i / sides) * math.pi * 2
-
-			local x1 = 0.5 + math.cos(a1) * radius
-			local y1 = 0.5 + math.sin(a1) * radius
-
-			local x2 = 0.5 + math.cos(a2) * radius
-			local y2 = 0.5 + math.sin(a2) * radius
-
-			local dx = x2 - x1
-			local dy = y2 - y1
-
-			local line = Instance.new("Frame")
-			line.AnchorPoint = Vector2.new(0.5, 0.5)
-			line.Position = UDim2.fromScale((x1 + x2) / 2, (y1 + y2) / 2)
-			line.Size = UDim2.fromScale(math.sqrt(dx * dx + dy * dy), 0)
-			line.Rotation = math.deg(math.atan2(dy, dx))
-			line.BorderSizePixel = 0
-			line.BackgroundColor3 = color
-			line.BackgroundTransparency = 0.25
-			line.Parent = parent
-
-			local stroke = Instance.new("UIStroke")
-			stroke.Color = color
-			stroke.Thickness = 1
-			stroke.Parent = line
-		end
-	end
-
-	local PolygonLayer = RotatingLayer(12, -1)
-	Polygon(PolygonLayer, 8, 0.29, GREY)
-
-	local PolygonLayer2 = RotatingLayer(19, 1)
-	Polygon(PolygonLayer2, 5, 0.22, LIGHT_GREY)
-
-	-- INNER CORE
-	Ring(Portal, 0.30, LIGHT_GREY, 2, 0.05)
-
-	local CoreFill = Instance.new("Frame")
-	CoreFill.AnchorPoint = Vector2.new(0.5, 0.5)
-	CoreFill.Position = UDim2.fromScale(0.5, 0.5)
-	CoreFill.Size = UDim2.fromScale(0.26, 0.26)
-	CoreFill.BackgroundColor3 = Color3.fromRGB(14, 14, 18)
-	CoreFill.BorderSizePixel = 0
-	CoreFill.Parent = Portal
-
-	local CoreCorner = Instance.new("UICorner")
-	CoreCorner.CornerRadius = UDim.new(1, 0)
-	CoreCorner.Parent = CoreFill
-
-	local CoreStroke = Instance.new("UIStroke")
-	CoreStroke.Color = GREY
-	CoreStroke.Thickness = 2
-	CoreStroke.Parent = CoreFill
-
-	Tween(CoreStroke, 1.5, {
-		Transparency = 0.7
-	}, -1)
-
-	-- CENTER LOGO IMAGE (set LOGO_ASSET_ID above)
-	if LOGO_ASSET_ID ~= "" and LOGO_ASSET_ID ~= "rbxassetid://0" then
-		local LogoImg = Instance.new("ImageLabel")
-		LogoImg.Name = "CenterLogo"
-		LogoImg.AnchorPoint = Vector2.new(0.5, 0.5)
-		LogoImg.Position = UDim2.fromScale(0.5, 0.5)
-		LogoImg.Size = UDim2.fromScale(0.82, 0.82)
-		LogoImg.BackgroundTransparency = 1
-		LogoImg.Image = LOGO_ASSET_ID
-		LogoImg.ScaleType = Enum.ScaleType.Fit
-		LogoImg.Parent = CoreFill
-	end
-
-	-- FLOATING PARTICLES
-	for i = 1, 14 do
-		local dot = Instance.new("Frame")
-		dot.AnchorPoint = Vector2.new(0.5, 0.5)
-		dot.Position = UDim2.fromScale(
-			((i * 37) % 90 + 5) / 100,
-			((i * 61) % 90 + 5) / 100
-		)
-		dot.Size = UDim2.fromOffset(i % 3 + 1, i % 3 + 1)
-		dot.BackgroundColor3 = GREY
-		dot.BackgroundTransparency = 0.25
-		dot.BorderSizePixel = 0
-		dot.Parent = BG
-
-		local corner = Instance.new("UICorner")
-		corner.CornerRadius = UDim.new(1, 0)
-		corner.Parent = dot
-	end
+	-- gentle pulse on the whole emblem
+	local scale = Instance.new("UIScale")
+	scale.Parent = Emblem
+	Tween(scale, 1.6, { Scale = 1.06 }, -1)
 
 	-- TITLE
 	local Title = Instance.new("TextLabel")
 	Title.AnchorPoint = Vector2.new(0.5, 0.5)
-	Title.Position = UDim2.fromScale(0.5, 0.66)
-	Title.Size = UDim2.fromScale(0.94, 0.085)
+	Title.Position = UDim2.fromScale(0.5, 0.75)
+	Title.Size = UDim2.fromScale(0.7, 0.085)
 	Title.BackgroundTransparency = 1
-	Title.Text = "Z E R O   M E R C Y   O N   T O P"
-	Title.TextColor3 = LIGHT_GREY
+	Title.Text = "A L L I E D"
+	Title.TextColor3 = WHITE
 	Title.Font = Enum.Font.GothamBlack
 	Title.TextScaled = true
 	Title.TextTransparency = 1
 	Title.Parent = BG
 
-	-- SUBTITLE
 	local Subtitle = Instance.new("TextLabel")
 	Subtitle.AnchorPoint = Vector2.new(0.5, 0.5)
-	Subtitle.Position = UDim2.fromScale(0.5, 0.72)
-	Subtitle.Size = UDim2.fromScale(0.7, 0.035)
+	Subtitle.Position = UDim2.fromScale(0.5, 0.82)
+	Subtitle.Size = UDim2.fromScale(0.6, 0.03)
 	Subtitle.BackgroundTransparency = 1
-	Subtitle.Text = "Y A D S A N   X   K A I S E R"
+	Subtitle.Text = "Z E R O   M E R C Y   O N   T O P   •   Y A D S A N   X   K A I S E R"
 	Subtitle.TextColor3 = GREY
 	Subtitle.Font = Enum.Font.GothamMedium
 	Subtitle.TextScaled = true
 	Subtitle.TextTransparency = 1
 	Subtitle.Parent = BG
 
-	-- STATUS
 	local Status = Instance.new("TextLabel")
 	Status.AnchorPoint = Vector2.new(0.5, 0.5)
-	Status.Position = UDim2.fromScale(0.5, 0.84)
-	Status.Size = UDim2.fromScale(0.8, 0.035)
+	Status.Position = UDim2.fromScale(0.5, 0.88)
+	Status.Size = UDim2.fromScale(0.6, 0.028)
 	Status.BackgroundTransparency = 1
-	Status.Text = "INITIALIZING SYSTEMS..."
-	Status.TextColor3 = GREY
+	Status.Text = "LOADING..."
+	Status.TextColor3 = TAUPE
 	Status.Font = Enum.Font.Gotham
 	Status.TextScaled = true
-	Status.TextTransparency = 0
 	Status.Parent = BG
 
 	-- PROGRESS BAR
 	local BarBG = Instance.new("Frame")
 	BarBG.AnchorPoint = Vector2.new(0.5, 0.5)
-	BarBG.Position = UDim2.fromScale(0.5, 0.91)
-	BarBG.Size = UDim2.fromScale(0.58, 0.009)
-	BarBG.BackgroundColor3 = Color3.fromRGB(36, 36, 42)
+	BarBG.Position = UDim2.fromScale(0.5, 0.93)
+	BarBG.Size = UDim2.fromScale(0.5, 0.007)
+	BarBG.BackgroundColor3 = Color3.fromRGB(30, 30, 34)
 	BarBG.BorderSizePixel = 0
 	BarBG.Parent = BG
 
-	local Bar = Instance.new("Frame")
-	Bar.Size = UDim2.fromScale(0, 1)
-	Bar.BackgroundColor3 = LIGHT_GREY
-	Bar.BorderSizePixel = 0
-	Bar.Parent = BarBG
+	local Fill = Instance.new("Frame")
+	Fill.Size = UDim2.fromScale(0, 1)
+	Fill.BackgroundColor3 = WHITE
+	Fill.BorderSizePixel = 0
+	Fill.Parent = BarBG
 
-	-- ANIMATION
-	Tween(Title, 1.2, {
-		TextTransparency = 0
-	})
-
-	Tween(Subtitle, 1.5, {
-		TextTransparency = 0
-	})
-
-	Tween(Bar, DURATION, {
-		Size = UDim2.fromScale(1, 1)
-	})
+	Tween(Title, 1.2, { TextTransparency = 0 })
+	Tween(Subtitle, 1.6, { TextTransparency = 0 })
+	Tween(Fill, DURATION, { Size = UDim2.fromScale(1, 1) }, 0, Enum.EasingStyle.Linear)
 
 	local messages = {
-		"INITIALIZING SYSTEMS...",
-		"CONNECTING TO KAISER PAPA UI...",
-		"YADSAN X KAISER NEW UPDATE ⚡",
-		"ZERO MERCY ON TOP 🎩",
-		"AB PLAYERS PILENGE ⚡"
+		"LOADING...",
+		"SIX FIGHTERS, ONE CREW",
+		"EQUAL FOOTING, ONE GOAL",
+		"ZERO MERCY ON TOP",
+		"ALLIED READY",
 	}
-
-	for _, message in ipairs(messages) do
-		Status.Text = message
+	for _, m in ipairs(messages) do
+		Status.Text = m
 		task.wait(DURATION / #messages)
 	end
 
-	-- FADE TRANSITION
-	for _, object in ipairs(Gui:GetDescendants()) do
-		if object:IsA("GuiObject") then
-			local properties = {
-				BackgroundTransparency = 1
-			}
-
-			if object:IsA("TextLabel") then
-				properties.TextTransparency = 1
-			elseif object:IsA("ImageLabel") then
-				properties.ImageTransparency = 1
-			end
-
-			Tween(object, 0.7, properties)
-		elseif object:IsA("UIStroke") then
-			Tween(object, 0.7, {
-				Transparency = 1
-			})
+	-- FADE OUT
+	for _, o in ipairs(Gui:GetDescendants()) do
+		if o:IsA("GuiObject") then
+			local p = { BackgroundTransparency = 1 }
+			if o:IsA("TextLabel") then p.TextTransparency = 1 end
+			Tween(o, 0.7, p)
+		elseif o:IsA("UIStroke") then
+			Tween(o, 0.7, { Transparency = 1 })
 		end
 	end
 
 	task.wait(0.8)
-	if camConn then camConn:Disconnect() end
 	if vpConn then vpConn:Disconnect() end
 	Gui:Destroy()
 end
