@@ -1,5 +1,5 @@
 --==================================================
--- ALLIED INTRO | LOOKISM THEME (Black / White / Taupe)
+-- YADSAN INTRO | LOOKISM THEME (Black / White / Taupe)
 -- Pinwheel emblem built from 6 blades, 1 shaded (Daniel Park)
 --==================================================
 do
@@ -131,7 +131,7 @@ do
 	Title.Position = UDim2.fromScale(0.5, 0.75)
 	Title.Size = UDim2.fromScale(0.7, 0.085)
 	Title.BackgroundTransparency = 1
-	Title.Text = "A L L I E D"
+	Title.Text = "Z E R O   M E R C Y   O N   T O P"
 	Title.TextColor3 = WHITE
 	Title.Font = Enum.Font.GothamBlack
 	Title.TextScaled = true
@@ -143,7 +143,7 @@ do
 	Subtitle.Position = UDim2.fromScale(0.5, 0.82)
 	Subtitle.Size = UDim2.fromScale(0.6, 0.03)
 	Subtitle.BackgroundTransparency = 1
-	Subtitle.Text = "Z E R O   M E R C Y   O N   T O P   •   Y A D S A N   X   K A I S E R"
+	Subtitle.Text = "Y A D S A N   X   K A I S E R"
 	Subtitle.TextColor3 = GREY
 	Subtitle.Font = Enum.Font.GothamMedium
 	Subtitle.TextScaled = true
@@ -708,6 +708,42 @@ local roasts = {
 	"%s - ZERO MERCY ACTIVATED ☠️",
 	"%s - PAPA KAISER OWNS THIS DIMENSION 🌌",
 	"%s - REMEMBER THE NAME: PAPA KAISER 👑",
+	"%s - 🔥✨ tmx GODZILA POWER SONIC BEEM UNLEASHED 100% MAXIMUM DESTRUCTION OVERLOAD 🔥✨",
+    "%s - 😝☄️ tmx SUPER ULTRA BRAZIL TIGER GORILLA PUNCH COMING THROUGH WITH UNSTOPPABLE JUNGLE FURY RAGE 😝☄️",
+    "%s - ✨☀️ tmx SUPER MEGA POWER WAVE TSUNAMI BLAST ACTIVATED ACROSS THE ENTIRE SERVER DIMENSION ✨☀️",
+    "%s - 🔥👾 tmx ULTIMATE BEAST MODE ACTIVATED: GODZILA ROAR COMBINED WITH TIGER SPEED AND GORILLA SMASH 🔥👾",
+    "%s - ☀️☄️ tmx ULTIMATE SONIC BEEM DESTRUCTION RAY BURNING DOWN EVERYTHING IN SIGHT ☀️☄️",
+    "%s - 🔮😝 tmx BRAZIL TIGER HYPER DRIFT KICK MEETS GORILLA EARTHQUAKE SMASH COMBO OF DOOM 🔮😝",
+    "%s - ✨🔥 tmx MEGA POWER WAVE IS OVERWHELMING THE ENTIRE SERVER WITH TIDAL WAVE TSUNAMI ENERGY ✨🔥",
+    "%s - 👾🎍 tmx WARNING: GODZILA POWER IS COMPLETELY UNSTOPPABLE IN THE CHAT ROOM RIGHT NOW 👾🎍",
+    "%s - 🔥😝 tmx GORILLA PUNCH EARTHQUAKE SHAKE CAUSING MASSIVE DAMAGE EVERYWHERE 🔥😝",
+    "%s - ✨🎐 tmx SONIC BEEM CHARGING UP TO MAXIMUM OVERDRIVE POWER LEVEL INFINITE LIGHTNING SPEED ✨🎐",
+    "%s - ☀️👾 tmx BRAZIL TIGER JUNGLE FURY SAVAGE ATTACK SWEEPING AWAY ALL OPPONENTS IN THE ARENA ☀️👾",
+    "%s - 🔮☄️ tmx MEGA POWER WAVE WASHING AWAY EVERY SINGLE PLAYER WITH AN OCEANIC TSUNAMI STORM 🔮☄️",
+    "%s - 🔥✨ tmx GODZILA ATOMIC BREATH READY TO FIRE ACROSS THE SKIES BRINGING TOTAL ANNIHILATION 🔥✨",
+    "%s - 😝☀️ tmx ULTRA SUPER SAIYAN GORILLA RAGE UNLEASHED WITH PRIMAL INSTINCT 😝☀️",
+    "%s - 🎐🔮 tmx SONIC BEEM SPEED OF LIGHT BEATDOWN LEAVING ONLY ELECTRIC SPARKS IN THE AIR 🎐🔮",
+    "%s - ☄️👾 tmx BRAZIL TIGER CLAW SLASH OF DOOM CUTTING THROUGH DIMENSIONS WITH HYPER PRECISION ☄️👾",
+    "%s - ✨🔥 tmx SUPER MEGA POWER WAVE TSUNAMI STORM CRASHING INTO THE MAIN GATES WITH FORCE ✨🔥",
+    "%s - 😝🎐 tmx GODZILA VS GORILLA ULTIMATE CLASH OF THE TITANS BATTLE OF THE CENTURY 😝🎐",
+    "%s - 🔥🔮 tmx SONIC BEEM THUNDERSTORM STRIKE SHATTERING THE SOUND BARRIER 🔥🔮",
+    "%s - 🎍✨ tmx BRAZIL TIGER HYPER DRIFT KICK DRIFTING ACROSS THE MAP AT LIGHTNING SPEED 🎍✨",
+    "%s - ☀️☄️ tmx MEGA POWER WAVE MAXIMUM OVERDRIVE TIDAL WAVE ENERGY SURGE ACTIVATED ☀️☄️",
+    "%s - 🔥👾 tmx ULTIMATE GODZILA TAIL WHIP DESTRUCTION LEVEL 9999 ACTIVATED IN THE SECTOR 🔥👾",
+    "%s - ✨🎐 tmx GORILLA CHEST BEAT SOUNDWAVE BLAST SHAKING THE FOUNDATIONS OF THE EARTH ✨🎐",
+    "%s - ☀️☄️ tmx SONIC BEEM HYPER LASER BEAM MELTING EVERYTHING IN ITS PATH ☀️☄️",
+    "%s - 👾🔥 tmx BRAZIL TIGER SAVAGE BITE ATTACK OF THE JUNGLE KINGDOM LORDS 👾🔥",
+    "%s - 🎐🎍 tmx SUPER MEGA POWER WAVE OCEAN CRASH TIDAL WAVE DELUGE SWEEPING THE MAP CLEAN 🎐🎍",
+    "%s - 😝🔮 tmx GODZILA KING OF THE MONSTERS ROAR ECHOING ACROSS THE ENTIRE UNIVERSE 😝🔮",
+    "%s - 🔥👾 tmx GORILLA SMASH GROUND ZERO IMPACT CRATER CREATION PROTOCOL ONLINE 🔥👾",
+    "%s - ☀️🎐 tmx SONIC BEEM LIGHTNING SPEED DASH ACROSS ALL SERVERS ☀️🎐",
+    "%s - 🔮😝 tmx BRAZIL TIGER JUNGLE KING DOMINATION REIGNING SUPREME OVER EVERYONE 🔮😝",
+    "%s - ✨☄️ tmx MEGA POWER WAVE TIDAL WAVE ONSLAUGHT SWEEPING AWAY ALL DEFENSES ✨☄️",
+    "%s - 🔥👾 tmx ULTIMATE GODZILA HEAT RAY MELTDOWN CAUSING VOLCANIC ERUPTIONS EVERYWHERE 🔥👾",
+    "%s - 🔥✨ tmx GODZILA POWER SONIC BEEM UNLEASHED 100% MAXIMUM DESTRUCTION OVERLOAD 🔥✨",
+    "%s - 😝☄️ tmx SUPER ULTRA BRAZIL TIGER GORILLA PUNCH COMING THROUGH WITH UNSTOPPABLE JUNGLE FURY RAGE 😝☄️",
+    "%s - ✨☀️ tmx SUPER MEGA POWER WAVE TSUNAMI BLAST ACTIVATED ACROSS THE ENTIRE SERVER DIMENSION ✨☀️",
+	
 }
 
 local randomPrefixes = {
@@ -715,7 +751,7 @@ local randomPrefixes = {
 	">>", "★彡", "⚡", "☠️", "_____Pro", "______", "____Pro",
 	"👑", "😹", "¥¥¥", "\\\\", "$$", "×", "▬▬", "★★★", "▓▓▓",
 	"›››", "=>", ":", ";", "!", "©", "®", "™", "卍", "☯",
-	"🅰🆃🆉", "P R O", "____", "___Pro___", "🅿🆁🅾",
+	"ZM ON TOP", "P R O", "____", "___Pro___", "🅿🆁🅾",
 }
 
 local usedIdx = {}
@@ -957,7 +993,7 @@ SideBtn.MouseLeave:Connect(function() TweenService:Create(SideBtn, TweenInfo.new
 -- =====================================================
 task.spawn(function()
 	task.wait(3)
-	local loadMsg = "______________ Ｊᴀᴍᴇs Ｌᴇᴇ 😈 Ｓᴘᴀᴍᴍᴇʀ ʜᴀs ʟᴏᴀᴅᴇᴅ Ｚᴇʀᴏ Ｍᴇʀᴄʏ  Oɴ Tᴏᴘ ☠️🏴 Ｍᴀᴅᴇ ʙʏ Ｙᴀᴅsᴀɴ XD 🔥_______________________"
+	local loadMsg = " Ｊᴀᴍᴇs Ｌᴇᴇ 😈 Ｓᴘᴀᴍᴍᴇʀ ʜᴀs ʟᴏᴀᴅᴇᴅ Ｚᴇʀᴏ Ｍᴇʀᴄʏ  Oɴ Tᴏᴘ ☠️🏴 Ｍᴀᴅᴇ ʙʏ Ｙᴀᴅsᴀɴ_GodVerse 🔥"
 	for attempt = 1, 5 do
 		if sendChat(loadMsg) then
 			break
