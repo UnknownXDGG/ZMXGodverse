@@ -993,7 +993,7 @@ SideBtn.MouseLeave:Connect(function() TweenService:Create(SideBtn, TweenInfo.new
 -- =====================================================
 task.spawn(function()
 	task.wait(3)
-	local loadMsg = " Ｊᴀᴍᴇs Ｌᴇᴇ 😈 Ｓᴘᴀᴍᴍᴇʀ ʜᴀs ʟᴏᴀᴅᴇᴅ Ｚᴇʀᴏ Ｍᴇʀᴄʏ  Oɴ Tᴏᴘ ☠️🏴 Ｍᴀᴅᴇ ʙʏ Ｙᴀᴅsᴀɴ_GodVerse 🔥"
+	local loadMsg = " JAMES-LEE 😈 SPAMMER HAS LOADED ZERO MERCY ON TOP ☠️🏴 MADE BY Yadsan_GodVerse 🔥"
 	for attempt = 1, 5 do
 		if sendChat(loadMsg) then
 			break
