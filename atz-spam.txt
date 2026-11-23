@@ -1,0 +1,1268 @@
+--[[
+    ╔══════════════════════════════════╗
+    ║        A T Z   S P A M M E R      ║
+    ║     Ultimate Dangerous Edition    ║
+    ║         VIP • FINAL • FIXED       ║
+    ╚══════════════════════════════════╝
+]]
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local TextChatService = game:GetService("TextChatService")
+
+local LocalPlayer = Players.LocalPlayer
+local parentGui = (gethui and gethui()) or game:GetService("CoreGui")
+
+-- Purani GUI Cleanup
+pcall(function()
+    local old = parentGui:FindFirstChild("ATZSpammer")
+    if old then old:Destroy() end
+end)
+
+-- =====================================================
+--              CHAT SEND (defined early)
+-- =====================================================
+local function sendChat(message)
+    if not message or message == "" then return end
+    local ok = pcall(function()
+        local channels = TextChatService:FindFirstChild("TextChannels")
+        if channels then
+            local general = channels:FindFirstChild("RBXGeneral")
+            if general then general:SendAsync(message) return end
+        end
+    end)
+    if ok then return end
+    pcall(function()
+        local event = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
+        if event then
+            local sayMsg = event:FindFirstChild("SayMessageRequest")
+            if sayMsg then sayMsg:FireServer(message, "All") end
+        end
+    end)
+end
+
+-- ============ ScreenGui ============
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "ATZSpammer"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Parent = parentGui
+
+-- =====================================================
+--              FLOATING SIDE BUTTON
+-- =====================================================
+local SideBtn = Instance.new("TextButton")
+SideBtn.Name = "SideButton"
+SideBtn.Size = UDim2.new(0, 150, 0, 45)
+SideBtn.Position = UDim2.new(0, 20, 0.5, -22)
+SideBtn.BackgroundColor3 = Color3.fromRGB(140, 60, 255)
+SideBtn.Text = "👑 ATZ Spammer"
+SideBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+SideBtn.Font = Enum.Font.GothamBold
+SideBtn.TextSize = 15
+SideBtn.BorderSizePixel = 0
+SideBtn.Active = true
+SideBtn.Parent = ScreenGui
+
+local sideCorner = Instance.new("UICorner")
+sideCorner.CornerRadius = UDim.new(0, 10)
+sideCorner.Parent = SideBtn
+
+local sideStroke = Instance.new("UIStroke")
+sideStroke.Color = Color3.fromRGB(200, 150, 255)
+sideStroke.Thickness = 2
+sideStroke.Parent = SideBtn
+
+local sideGrad = Instance.new("UIGradient")
+sideGrad.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(180, 80, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(90, 40, 200)),
+}
+sideGrad.Rotation = 45
+sideGrad.Parent = SideBtn
+
+-- =====================================================
+--              MAIN GUI FRAME
+-- =====================================================
+local Main = Instance.new("Frame")
+Main.Name = "Main"
+Main.AnchorPoint = Vector2.new(0.5, 0.5)
+Main.Size = UDim2.new(0, 0, 0, 0)
+Main.Position = UDim2.new(0.5, 0, 0.5, 0)
+Main.BackgroundColor3 = Color3.fromRGB(12, 8, 18)
+Main.BorderSizePixel = 0
+Main.ClipsDescendants = true
+Main.Visible = false
+Main.Parent = ScreenGui
+
+local mainCorner = Instance.new("UICorner")
+mainCorner.CornerRadius = UDim.new(0, 15)
+mainCorner.Parent = Main
+
+local mainStroke = Instance.new("UIStroke")
+mainStroke.Color = Color3.fromRGB(180, 0, 255)
+mainStroke.Thickness = 2.5
+mainStroke.Parent = Main
+
+-- Top Bar
+local TopBar = Instance.new("Frame")
+TopBar.Size = UDim2.new(1, 0, 0, 55)
+TopBar.BackgroundColor3 = Color3.fromRGB(20, 10, 30)
+TopBar.BorderSizePixel = 0
+TopBar.Parent = Main
+
+local topCorner = Instance.new("UICorner")
+topCorner.CornerRadius = UDim.new(0, 15)
+topCorner.Parent = TopBar
+
+local topFix = Instance.new("Frame")
+topFix.Size = UDim2.new(1, 0, 0, 15)
+topFix.Position = UDim2.new(0, 0, 1, -15)
+topFix.BackgroundColor3 = Color3.fromRGB(20, 10, 30)
+topFix.BorderSizePixel = 0
+topFix.Parent = TopBar
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, -80, 0, 35)
+Title.Position = UDim2.new(0, 15, 0, 10)
+Title.BackgroundTransparency = 1
+Title.Text = "🔥 ATZ SPAMMER VIP 🔥"
+Title.TextColor3 = Color3.fromRGB(220, 100, 255)
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Font = Enum.Font.GothamBlack
+Title.TextSize = 20
+Title.Parent = TopBar
+
+-- Close button
+local CloseBtn = Instance.new("TextButton")
+CloseBtn.Size = UDim2.new(0, 32, 0, 32)
+CloseBtn.Position = UDim2.new(1, -42, 0, 11)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(255, 30, 60)
+CloseBtn.Text = "X"
+CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseBtn.Font = Enum.Font.GothamBlack
+CloseBtn.TextSize = 16
+CloseBtn.BorderSizePixel = 0
+CloseBtn.Parent = TopBar
+
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0, 8)
+closeCorner.Parent = CloseBtn
+
+local closeStroke = Instance.new("UIStroke")
+closeStroke.Color = Color3.fromRGB(255, 100, 100)
+closeStroke.Thickness = 2
+closeStroke.Parent = CloseBtn
+
+-- ===== Section: Targets =====
+local TargetHeader = Instance.new("TextLabel")
+TargetHeader.Size = UDim2.new(1, -30, 0, 20)
+TargetHeader.Position = UDim2.new(0, 15, 0, 65)
+TargetHeader.BackgroundTransparency = 1
+TargetHeader.Text = "🎯 Select Targets (click to cycle):"
+TargetHeader.TextColor3 = Color3.fromRGB(200, 180, 220)
+TargetHeader.TextXAlignment = Enum.TextXAlignment.Left
+TargetHeader.Font = Enum.Font.GothamBold
+TargetHeader.TextSize = 13
+TargetHeader.Parent = Main
+
+local TargetFrame = Instance.new("Frame")
+TargetFrame.Size = UDim2.new(1, -30, 0, 95)
+TargetFrame.Position = UDim2.new(0, 15, 0, 90)
+TargetFrame.BackgroundTransparency = 1
+TargetFrame.Parent = Main
+
+local targets = {nil, nil, nil, nil}
+local targetButtons = {}
+
+local function getAvailablePlayers()
+    local list = {}
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= LocalPlayer then
+            table.insert(list, p)
+        end
+    end
+    return list
+end
+
+for i = 1, 4 do
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(0.5, -6, 0, 42)
+    btn.Position = UDim2.new(((i-1) % 2) * 0.5, ((i-1) % 2) * 8, math.floor((i-1)/2) * 0.5, math.floor((i-1)/2) * 6)
+    btn.BackgroundColor3 = Color3.fromRGB(25, 15, 35)
+    btn.Text = "Target " .. i .. ": Empty"
+    btn.TextColor3 = Color3.fromRGB(180, 150, 200)
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 12
+    btn.BorderSizePixel = 0
+    btn.Parent = TargetFrame
+
+    local c = Instance.new("UICorner")
+    c.CornerRadius = UDim.new(0, 8)
+    c.Parent = btn
+
+    local s = Instance.new("UIStroke")
+    s.Color = Color3.fromRGB(80, 40, 120)
+    s.Thickness = 1.5
+    s.Parent = btn
+
+    targetButtons[i] = btn
+
+    btn.MouseButton1Click:Connect(function()
+        local list = getAvailablePlayers()
+        if #list == 0 then
+            targets[i] = nil
+            btn.Text = "Target " .. i .. ": Empty"
+            return
+        end
+        local curIdx = 0
+        if targets[i] then
+            for idx, p in ipairs(list) do
+                if p == targets[i] then curIdx = idx break end
+            end
+        end
+        curIdx = curIdx + 1
+        if curIdx > #list then
+            targets[i] = nil
+            btn.Text = "Target " .. i .. ": Empty"
+            btn.BackgroundColor3 = Color3.fromRGB(25, 15, 35)
+            s.Color = Color3.fromRGB(80, 40, 120)
+            btn.TextColor3 = Color3.fromRGB(180, 150, 200)
+        else
+            targets[i] = list[curIdx]
+            btn.Text = "Target " .. i .. ": " .. list[curIdx].Name
+            btn.BackgroundColor3 = Color3.fromRGB(60, 20, 80)
+            s.Color = Color3.fromRGB(220, 80, 255)
+            btn.TextColor3 = Color3.fromRGB(255, 220, 255)
+        end
+    end)
+end
+
+-- ===== Prefix Section =====
+local PrefixLabel = Instance.new("TextLabel")
+PrefixLabel.Size = UDim2.new(0, 120, 0, 18)
+PrefixLabel.Position = UDim2.new(0, 15, 0, 195)
+PrefixLabel.BackgroundTransparency = 1
+PrefixLabel.Text = "🏷️ Prefix Mode:"
+PrefixLabel.TextColor3 = Color3.fromRGB(200, 180, 220)
+PrefixLabel.TextXAlignment = Enum.TextXAlignment.Left
+PrefixLabel.Font = Enum.Font.GothamBold
+PrefixLabel.TextSize = 13
+PrefixLabel.Parent = Main
+
+local PrefixBox = Instance.new("TextBox")
+PrefixBox.Size = UDim2.new(0, 100, 0, 32)
+PrefixBox.Position = UDim2.new(0, 15, 0, 216)
+PrefixBox.BackgroundColor3 = Color3.fromRGB(25, 15, 35)
+PrefixBox.BorderSizePixel = 0
+PrefixBox.Text = "---"
+PrefixBox.PlaceholderText = "Custom Prefix"
+PrefixBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+PrefixBox.Font = Enum.Font.GothamBold
+PrefixBox.TextSize = 14
+PrefixBox.ClearTextOnFocus = false
+PrefixBox.Parent = Main
+
+local prefixCorner = Instance.new("UICorner")
+prefixCorner.CornerRadius = UDim.new(0, 8)
+prefixCorner.Parent = PrefixBox
+
+local prefixStroke = Instance.new("UIStroke")
+prefixStroke.Color = Color3.fromRGB(80, 40, 120)
+prefixStroke.Thickness = 1.5
+prefixStroke.Parent = PrefixBox
+
+local RandomPrefixBtn = Instance.new("TextButton")
+RandomPrefixBtn.Size = UDim2.new(0, 130, 0, 32)
+RandomPrefixBtn.Position = UDim2.new(0, 125, 0, 216)
+RandomPrefixBtn.BackgroundColor3 = Color3.fromRGB(40, 20, 60)
+RandomPrefixBtn.Text = "Prefix: CUSTOM"
+RandomPrefixBtn.TextColor3 = Color3.fromRGB(220, 150, 255)
+RandomPrefixBtn.Font = Enum.Font.GothamBold
+RandomPrefixBtn.TextSize = 13
+RandomPrefixBtn.BorderSizePixel = 0
+RandomPrefixBtn.Parent = Main
+
+local randCorner = Instance.new("UICorner")
+randCorner.CornerRadius = UDim.new(0, 8)
+randCorner.Parent = RandomPrefixBtn
+
+local randStroke = Instance.new("UIStroke")
+randStroke.Color = Color3.fromRGB(120, 60, 180)
+randStroke.Thickness = 1.5
+randStroke.Parent = RandomPrefixBtn
+
+local isRandomPrefix = false
+RandomPrefixBtn.MouseButton1Click:Connect(function()
+    isRandomPrefix = not isRandomPrefix
+    if isRandomPrefix then
+        RandomPrefixBtn.Text = "Prefix: RANDOM"
+        RandomPrefixBtn.BackgroundColor3 = Color3.fromRGB(80, 20, 100)
+        RandomPrefixBtn.TextColor3 = Color3.fromRGB(255, 150, 255)
+        PrefixBox.Text = "RANDOM"
+        PrefixBox.TextEditable = false
+    else
+        RandomPrefixBtn.Text = "Prefix: CUSTOM"
+        RandomPrefixBtn.BackgroundColor3 = Color3.fromRGB(40, 20, 60)
+        RandomPrefixBtn.TextColor3 = Color3.fromRGB(220, 150, 255)
+        PrefixBox.Text = "---"
+        PrefixBox.TextEditable = true
+    end
+end)
+
+-- ===== Delay =====
+local DelayLabel = Instance.new("TextLabel")
+DelayLabel.Size = UDim2.new(0, 120, 0, 18)
+DelayLabel.Position = UDim2.new(0, 275, 0, 195)
+DelayLabel.BackgroundTransparency = 1
+DelayLabel.Text = "⚡ Delay (sec):"
+DelayLabel.TextColor3 = Color3.fromRGB(200, 180, 220)
+DelayLabel.TextXAlignment = Enum.TextXAlignment.Left
+DelayLabel.Font = Enum.Font.GothamBold
+DelayLabel.TextSize = 13
+DelayLabel.Parent = Main
+
+local DelayBox = Instance.new("TextBox")
+DelayBox.Size = UDim2.new(0, 100, 0, 32)
+DelayBox.Position = UDim2.new(0, 275, 0, 216)
+DelayBox.BackgroundColor3 = Color3.fromRGB(25, 15, 35)
+DelayBox.BorderSizePixel = 0
+DelayBox.Text = "1"
+DelayBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+DelayBox.Font = Enum.Font.GothamBold
+DelayBox.TextSize = 14
+DelayBox.ClearTextOnFocus = false
+DelayBox.Parent = Main
+
+local delayCorner = Instance.new("UICorner")
+delayCorner.CornerRadius = UDim.new(0, 8)
+delayCorner.Parent = DelayBox
+
+local delayStroke = Instance.new("UIStroke")
+delayStroke.Color = Color3.fromRGB(80, 40, 120)
+delayStroke.Thickness = 1.5
+delayStroke.Parent = DelayBox
+
+-- ===== Start/Stop =====
+local StartBtn = Instance.new("TextButton")
+StartBtn.Size = UDim2.new(0.5, -22, 0, 45)
+StartBtn.Position = UDim2.new(0, 15, 0, 262)
+StartBtn.BackgroundColor3 = Color3.fromRGB(20, 80, 40)
+StartBtn.Text = "▶ START"
+StartBtn.TextColor3 = Color3.fromRGB(100, 255, 150)
+StartBtn.Font = Enum.Font.GothamBlack
+StartBtn.TextSize = 16
+StartBtn.BorderSizePixel = 0
+StartBtn.Parent = Main
+
+local startCorner = Instance.new("UICorner")
+startCorner.CornerRadius = UDim.new(0, 8)
+startCorner.Parent = StartBtn
+
+local startStroke = Instance.new("UIStroke")
+startStroke.Color = Color3.fromRGB(0, 255, 100)
+startStroke.Thickness = 2
+startStroke.Parent = StartBtn
+
+local StopBtn = Instance.new("TextButton")
+StopBtn.Size = UDim2.new(0.5, -22, 0, 45)
+StopBtn.Position = UDim2.new(0.5, 7, 0, 262)
+StopBtn.BackgroundColor3 = Color3.fromRGB(80, 20, 20)
+StopBtn.Text = "■ STOP"
+StopBtn.TextColor3 = Color3.fromRGB(255, 100, 100)
+StopBtn.Font = Enum.Font.GothamBlack
+StopBtn.TextSize = 16
+StopBtn.BorderSizePixel = 0
+StopBtn.Parent = Main
+
+local stopCorner = Instance.new("UICorner")
+stopCorner.CornerRadius = UDim.new(0, 8)
+stopCorner.Parent = StopBtn
+
+local stopStroke = Instance.new("UIStroke")
+stopStroke.Color = Color3.fromRGB(255, 0, 0)
+stopStroke.Thickness = 2
+stopStroke.Parent = StopBtn
+
+-- Status
+local Status = Instance.new("TextLabel")
+Status.Size = UDim2.new(1, -30, 0, 28)
+Status.Position = UDim2.new(0, 15, 0, 318)
+Status.BackgroundColor3 = Color3.fromRGB(20, 12, 30)
+Status.BorderSizePixel = 0
+Status.Text = "Status: Idle 💤"
+Status.TextColor3 = Color3.fromRGB(180, 180, 200)
+Status.Font = Enum.Font.GothamBold
+Status.TextSize = 13
+Status.Parent = Main
+
+local statCorner = Instance.new("UICorner")
+statCorner.CornerRadius = UDim.new(0, 8)
+statCorner.Parent = Status
+
+-- =====================================================
+--              GUI OPEN / CLOSE
+-- =====================================================
+local guiOpen = false
+local targetSize = UDim2.new(0, 420, 0, 360)
+
+local function openGUI()
+    if guiOpen then return end
+    guiOpen = true
+    Main.Visible = true
+    Main.Size = UDim2.new(0, 0, 0, 0)
+    TweenService:Create(Main, TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = targetSize }):Play()
+end
+
+local function closeGUI()
+    if not guiOpen then return end
+    guiOpen = false
+    local tw = TweenService:Create(Main, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In), { Size = UDim2.new(0, 0, 0, 0) })
+    tw:Play()
+    tw.Completed:Connect(function() Main.Visible = false end)
+end
+
+-- SideBtn drag (GUI ko center pe fixed rakhega)
+local dragging, dragStart, startPos, moved = false, nil, nil, false
+
+SideBtn.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true; moved = false; dragStart = input.Position; startPos = SideBtn.Position
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local delta = input.Position - dragStart
+        if math.abs(delta.X) > 6 or math.abs(delta.Y) > 6 then moved = true end
+        SideBtn.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        if dragging and not moved then
+            if guiOpen then closeGUI() else openGUI() end
+        end
+        dragging = false
+    end
+end)
+
+CloseBtn.MouseButton1Click:Connect(closeGUI)
+
+-- =====================================================
+--              GLOW ANIMATIONS
+-- =====================================================
+task.spawn(function()
+    while true do
+        TweenService:Create(startStroke, TweenInfo.new(1), {Transparency = 0.5}):Play()
+        TweenService:Create(stopStroke, TweenInfo.new(1), {Transparency = 0.5}):Play()
+        TweenService:Create(mainStroke, TweenInfo.new(1.5), {Transparency = 0.4}):Play()
+        task.wait(1)
+        TweenService:Create(startStroke, TweenInfo.new(1), {Transparency = 0}):Play()
+        TweenService:Create(stopStroke, TweenInfo.new(1), {Transparency = 0}):Play()
+        TweenService:Create(mainStroke, TweenInfo.new(1.5), {Transparency = 0}):Play()
+        task.wait(1)
+    end
+end)
+
+-- =====================================================
+--              250+ ROASTS (MEGA POOL)
+-- =====================================================
+local roasts = {
+"%s Bc teri shakal dekh ke mirror ne aaj tak ka sabse bada suicide note likh diya 🤡💀🚑",
+"%s Bc tu paida hua toh doctor ne maafi maang li aur nurse ne job chhod di 😭😂🏥",
+"%s Bc teri maa ne tujhe paida karke apni galti ka pura lifetime regret kiya hai 💀🤰",
+"%s Bc tu itna ganda hai ki Google bhi tujhe dhundhne se mana kar deta hai 🤢🚫🗺️",
+"%s Bc teri shakal se road pe pura din accident hote rehte hai, traffic jam ho jata hai 🚗💥🚓",
+"%s Bc teri maa ki shakal dekh ke chudail bhi complex me chali gayi 👻😹🧟‍♀️",
+"%s Bc tujhe dekh ke bhains bhi hassi ki mare pagal ho gayi aur doodh dena band kar diya 🐃😂🥛",
+"%s Bc teri aukaat itni chhoti hai ki ants bhi tujhe ignore karke nikal jaati hai 🐜🚶‍♂️",
+"%s Bc tu paida hua toh hospital ki pura light fuse ho gayi thi, generator bhi fail 💡😂🔌",
+"%s Bc teri behen ko dekh ke Android phone bhi hang ho gaya aur iPhone ne restart maang liya 📵💀📱",
+"%s Bc tu itna ganda hai ki gutter bhi tujhe dekh ke apna muh pher leta hai 🚽🤢🤮",
+"%s Bc teri shakal se mujhe aaj tak ki sabse badi constipation ho gayi hai 💩😖",
+"%s Bc tere baap ne tujhe godh me liya aur usi din nasbandi karwa li 💀🤣✂️",
+"%s Bc tu itna bda chutiya hai ki ChatGPT bhi tujhse baat karke pagal ho gaya aur server crash 🤖😂📉",
+"%s Bc teri shakal dekh ke CCTV camera ne apna lens hi tod diya 📷🔨",
+"%s Bc teri maa ki jaw line dekh ke bulldog bhi sharma gaya aur gym join kar liya 🐶😹🏋️‍♂️",
+"%s Bc tu paida hua toh nurse ne delivery ke paise wapas kar diye aur doctor ne clinic band kar di 💸😂🏥",
+"%s Bc teri shakal se mere phone ka screen crack ho gaya, warranty bhi void ho gayi 📱💥🚫",
+"%s Bc teri behen ka rate bhi discount me bik raha hai aur koi khareedne wala nahi 🛒🤡📉",
+"%s Bc tere ghar me aaina rakhna banned hai kyunki aaina tujhe dekh ke khudkushi kar leta hai 🪞😂💀",
+"%s Bc teri maa ki chappal bhi tujhe maar ke thak gayi aur retire ho gayi 🩴😭🏖️",
+"%s Bc tu itna useless hai ki WiFi bhi tujhse connect nahi hota, hotspot bhi reject 📶🤡🚫",
+"%s Bc teri shakal dekh ke Google Earth bhi coordinates change kar leta hai 🌍😂📍",
+"%s Bc tere paas paisa nahi aur attitude Shoaib Akhtar se bhi zyada, bowling bhi nahi aati 🤣🏏",
+"%s Bc teri behen ka Insta profile bhi tere se ganda hai, filters bhi kaam nahi karte 📸💀🤳",
+"%s Bc teri shakal se bhoot bhi darr ke bhaag jate hai aur unka transfer ho jata hai 👻🏃‍♂️🏚️",
+"%s Bc teri maa ne tujhe godh me liya toh kaali billi guzri thi, nazar lag gayi 🐈‍⬛😹🧿",
+"%s Bc tu itna kaala hai ki raat me tujhe dekh ke log bhaag jate hai, bijli bhi darti hai 🌚😂⚡",
+"%s Bc teri shakal se Facebook bhi apna algorithm change kar leta hai aur tujhe ban kar deta hai 📱🤡🚫",
+"%s Bc teri personality dekh ke personality development classes bhi ro deti hai aur band ho jati hai 😭📚",
+"%s Bc tera baap bhi tujhe dekh ke adoption ke baare me sochta hai, shayad orphanage le jaye 🏠💀👶",
+"%s Bc tu itna bhookha hai ki teri maa ne tujhe bhikhari ka bacha hua khaana diya tha 🍽️🤣🐕",
+"%s Bc teri shakal dekh ke Nikon ne apna camera business band kar diya, Canon bhi ro raha hai 📷😭🏢",
+"%s Bc teri behen ke nakhre dekh ke Shahrukh bhi acting chhod de aur rickshaw chalaane lage 🎬😂🛺",
+"%s Bc teri aukaat itni hai ki teri maa bhi tujhe ignore karti hai, WhatsApp pe block hai tu 🤷‍♂️💀📵",
+"%s Bc teri shakal dekh ke doctor ne stethoscope phenk diya, patient dekhna chhod diya 🩺😭🏥",
+"%s Bc tu itna mota hai ki gravity bhi tujhse darr ke paas nahi aati 🌍😱🧲",
+"%s Bc teri maa ki cooking dekh ke MasterChef walo ne show band kar diya 🍳🤢📺",
+"%s Bc tere face pe itne daane hai ki Google Maps ne ise naya continent declare kar diya 🗺️😂🌋",
+"%s Bc teri shakal se mere sapne me bhi horror movie ban gayi, Netflix ne deal di 🎬💀👻",
+"%s Bc tu itna gareeb hai ki teri jeb me sirf hawa rehti hai aur wo bhi polluted 🍃🤡💸",
+"%s Bc teri behen ka makeup dekh ke clown bhi complex me chala gaya aur circus join kar liya 🤡😂🎪",
+"%s Bc teri shakal se meri eyes ko permanent damage ho gaya, doctor ne chashma de diya 👓😭💀",
+"%s Bc tu paida hua toh maa ne tujhe dekh ke bola 'ye mera nahi hai' 🤱😂💔",
+"%s Bc teri maa ki shakal se aliens bhi darr ke apne planet wapas chale gaye 👽🚀😱",
+"%s Bc teri shakal dekh ke Photoshop ne bhi kaam karna chhod diya, 'impossible' bol ke 🤷‍♂️😂🖼️",
+"%s Bc tu itna susu hai ki toilet bhi tujhse jal ke aag lag jati hai 🚽🔥💀",
+"%s Bc teri behen ka dance dekh ke naagin bhi sharma gayi aur ruk gayi 🐍😭💃",
+"%s Bc teri shakal se meri girlfriend bhi bhaag gayi, bola 'ye kya hai' 💔😂🏃‍♀️",
+"%s Bc teri aukaat itni hai ki tera reflection bhi tujhse muh pher leta hai 🪞😹💀",
+"%s Bc teri maa ki chudail jaisi shakal dekh ke Halloween cancel ho gaya is saal 🎃😂👻",
+"%s Bc tu itna chutiya hai ki Google bhi tujhe search kare toh 'no results' aata hai 🔍🤡📭",
+"%s Bc teri shakal se mere camera ka lens phat gaya, warranty bhi nahi mili 📸💥😭",
+"%s Bc teri behen ka figure dekh ke bamboo bhi sharma gaya, it's that straight 🎋😂📏",
+"%s Bc teri maa ki umar bhi badh gayi tujhe dekh ke, tension se 🎂😭💀",
+"%s Bc tu itna ganda hai ki kachra bhi tujhse door rehta hai, social distancing 🗑️😂📏",
+"%s Bc teri shakal dekh ke mirror ne resign de diya, 'I quit' bol ke 🪞📝😭",
+"%s Bc teri behen ki shakal se meri eyes ko medical treatment chahiye 👁️💀💉",
+"%s Bc tu paida hua toh nurse ne tujhe ulta pakad ke godh me daal diya 🔄😂👶",
+"%s Bc teri maa ki shakal dekh ke Sundar Pichai bhi confuse ho gaya, Google Maps fail 🗺️😹📵",
+"%s Bc teri shakal se ek baar mera phone explode ho gaya tha 💥📱😭",
+"%s Bc tu itna useless hai ki teri maa ne tujhe WiFi password bhi nahi diya 📶🤡💀",
+"%s Bc teri behen ki shakal dekh ke Modi ji ne bhi India chhod diya 🇮🇳😂🏃",
+"%s Bc teri shakal se meri subah kharab ho jati hai, alarm ki zaroorat nahi ⏰🤢😭",
+"%s Bc teri maa ki cooking dekh ke aag bhi sharma gayi, jalna band kar diya 🔥😹🍳",
+"%s Bc tu itna kaala hai ki kaale rang walo ne bhi tujhe reject kar diya 🌚🤡🚫",
+"%s Bc teri shakal se maine apna aaina tod diya, insurance bhi nahi mila 🪞💥😭",
+"%s Bc teri behen ka nakhra dekh ke Shahrukh ne acting chhod di, Devdas wapas aa gaya 🎬😂😭",
+"%s Bc teri shakal dekh ke Google ne apna AI shut down kar diya, 'too ugly to process' 🤖💀🚫",
+"%s Bc tu itna gareeb hai ki teri jeb me sirf hawa aur attitude bhara hai 🍃😂💸",
+"%s Bc teri maa ki shakal dekh ke bhagwan ne bhi apni aankhein band kar li 🛕😭👁️",
+"%s Bc teri shakal se meri ex bhi wapas bhaag gayi, 'isse toh main better hu' 💔😂🏃‍♀️",
+"%s Bc tu paida hua toh maa ne tujhe orphanage de diya, bola 'ye mera nahi hai' 🏠😂👶",
+"%s Bc teri behen ki shakal dekh ke Rihanna ne bhi makeup chhod diya 💄😭💀",
+"%s Bc teri shakal dekh ke WiFi signal bhi weak ho jata hai, connectivity issue 📶🤡💀",
+"%s Bc tu itna ganda hai ki kachre ka dabba bhi tujhe dekh ke muh pher leta hai 🗑️😂🤮",
+"%s Bc teri maa ki shakal dekh ke doctor ne bhi apni practice chhod di, 'can't cure this' 🩺😭💀",
+"%s Bc teri shakal se mere ghar me earthquake aaya tha, scientist confused 🌍😂📉",
+"%s Bc teri behen ka figure dekh ke bamboo bhi complex me chala gaya, 'too straight' 🎋😹💀",
+"%s Bc tu itna bhookha hai ki teri maa ne tujhe kachre se khaana diya tha, CCTV proof 🎥😂🍽️",
+"%s Bc teri shakal dekh ke camera ne bhi apna battery drain kar diya, khatam 🔋💀📸",
+"%s Bc teri maa ki chappal bhi tujhe maar ke thak gayi aur retired ho gayi 🩴😭🏖️",
+"%s Bc tu itna chutiya hai ki teri maa ne tujhe class 1 me bhi fail kar diya 📚😂💀",
+"%s Bc teri shakal dekh ke mirror ne suicide kar liya, RIP 🪞💀💔",
+"%s Bc teri behen ki shakal dekh ke Sunny Leone bhi sharma gayi 🎬😂💀",
+"%s Bc teri maa ki shakal dekh ke bhagwan ne bhi resign de diya, 'I quit' 🛕📝😭",
+"%s Bc tu paida hua toh hospital ki pura staff bhaag gaya, strike ho gayi 🏥🏃‍♂️😂",
+"%s Bc teri shakal se meri eyesight kharab ho gayi, doctor ne chashma diya 👓💀😭",
+"%s Bc tu itna gareeb hai ki teri maa ne tujhe bhikhari se paisa maangne bheja tha 💸😂🐕",
+"%s Bc teri shakal dekh ke COVID bhi darr gaya, mask pehen ke bhaag gaya 😷😂🦠",
+"%s Bc teri behen ka dance dekh ke naagin bhi sharma gayi aur ruk gayi 🐍😭💃",
+"%s Bc teri maa ki cooking dekh ke MasterChef walo ne show band kar diya 🍳🤢📺",
+"%s Bc tu itna ganda hai ki gutter bhi tujhe dekh ke muh pher leta hai 🚽😂🤮",
+"%s Bc teri shakal se meri subah kharab ho jati hai, alarm ki zaroorat nahi ⏰🤢😭",
+"%s Bc teri behen ki shakal dekh ke Modi ji ne bhi India chhod diya 🇮🇳😂🏃",
+"%s Bc teri maa ki shakal dekh ke ghosts bhi bhaag gaye, 'too scary' 👻😂🏃",
+"%s Bc tu itna susu hai ki toilet bhi tujhse jal ke aag lag jati hai 🚽🔥💀",
+"%s Bc teri shakal dekh ke Instagram ne apna algorithm change kar diya 📱😂💀",
+"%s Bc teri behen ka makeup dekh ke clown bhi complex me chala gaya 🤡😭🎪",
+"%s Bc teri maa ki jaw line dekh ke bulldog bhi sharma gaya aur gym join kar liya 🐶😹🏋️‍♂️",
+"%s Bc tu itna useless hai ki tera shadow bhi tujhe chhod ke chala jata hai 🌑😂💀",
+"%s Bc teri shakal se meri eyes ko permanent damage ho gaya, doctor ne chashma de diya 👓😭💀",
+"%s Bc teri behen ki shakal dekh ke Rihanna ne bhi makeup chhod diya 💄😭💀",
+"%s Bc teri maa ki shakal dekh ke Sundar Pichai bhi confuse ho gaya 🗺️😹📵",
+"%s Bc tu paida hua toh nurse ne delivery ke paise wapas kar diye 💸😂🏥",
+"%s Bc teri shakal se meri girlfriend bhi bhaag gayi, boli 'ye kya hai' 💔😂🏃‍♀️",
+"%s Bc teri behen ka rate bhi discount me bik raha hai aur koi khareedne wala nahi 🛒🤡📉",
+"%s Bc teri maa ki chudail jaisi shakal dekh ke Halloween cancel ho gaya is saal 🎃😂👻",
+"%s Bc tu itna kaala hai ki kaale rang walo ne bhi tujhe reject kar diya 🌚🤡🚫",
+"%s Bc teri shakal dekh ke Google ne apna AI shut down kar diya 🤖💀🚫",
+"%s Bc teri behen ka Insta profile bhi tere se ganda hai, filters bhi kaam nahi karte 📸💀🤳",
+"%s Bc teri maa ki shakal dekh ke aliens bhi darr ke planet wapas chale gaye 👽🚀😱",
+"%s Bc tu itna mota hai ki gravity bhi tujhse darr ke paas nahi aati 🌍😱🧲",
+"%s Bc teri shakal dekh ke CCTV camera ne apna lens hi tod diya 📷🔨",
+"%s Bc teri behen ki shakal dekh ke Sunny Leone bhi sharma gayi 🎬😂💀",
+"%s Bc teri maa ki shakal dekh ke chudail bhi complex me chali gayi 👻😹🧟‍♀️",
+"%s Bc tu itna chutiya hai ki ChatGPT bhi tujhse baat karke pagal ho gaya 🤖😂📉",
+"%s Bc teri shakal dekh ke Photoshop ne bhi kaam karna chhod diya, 'impossible' 🤷‍♂️😂🖼️",
+"%s Bc teri behen ke nakhre dekh ke Shahrukh bhi rickshaw chalaane lage 🎬😂🛺",
+"%s Bc teri maa ki cooking dekh ke aag bhi sharma gayi, jalna band kar diya 🔥😹🍳",
+"%s Bc tu itna gareeb hai ki teri jeb me sirf hawa rehti hai aur wo bhi polluted 🍃🤡💸",
+"%s Bc teri shakal se mere ghar me earthquake aaya tha, scientist confused 🌍😂📉",
+"%s Bc teri behen ka nakhra dekh ke Devdas wapas aa gaya, acting chhod di 🎬😂😭",
+"%s Bc teri maa ki shakal dekh ke bhagwan ne bhi apni aankhein band kar li 🛕😭👁️",
+"%s Bc tu paida hua toh maa ne tujhe orphanage de diya 🏠😂👶",
+"%s Bc teri shakal se meri ex bhi wapas bhaag gayi, 'isse toh main better hu' 💔😂🏃‍♀️",
+"%s Bc teri behen ki shakal dekh ke camera ne battery drain kar di 🔋💀📸",
+"%s Bc teri maa ki shakal dekh ke doctor ne bhi practice chhod di, 'can't cure' 🩺😭💀",
+"%s Bc tu itna ganda hai ki kachre ka dabba bhi tujhe dekh ke muh pher leta hai 🗑️😂🤮",
+"%s Bc teri shakal dekh ke mirror ne suicide kar liya, RIP 🪞💀💔",
+"%s Bc teri behen ka dance dekh ke naagin bhi sharma gayi 🐍😭💃",
+"%s Bc teri maa ki chappal bhi tujhe maar ke retire ho gayi 🩴😭🏖️",
+"%s Bc tu itna chutiya hai ki teri maa ne tujhe class 1 me bhi fail kar diya 📚😂💀",
+"%s Bc teri shakal se meri eyesight kharab ho gayi, chashma mila 👓💀😭",
+"%s Bc teri behen ki shakal dekh ke COVID bhi darr gaya 😷😂🦠",
+"%s Bc teri maa ki shakal dekh ke hospital staff bhaag gaya, strike 🏥🏃‍♂️😂",
+"%s Bc tu paida hua toh doctor ne maafi maang li 😭😂🏥",
+"%s Bc teri shakal dekh ke road pe accident ho jate hai, traffic jam 🚗💥🚓",
+"%s Bc teri maa ki shakal se chudail bhi complex me chali gayi 👻😹🧟‍♀️",
+"%s Bc tujhe dekh ke bhains bhi hassen lagi aur doodh band kar diya 🐃😂🥛",
+"%s Bc teri aukaat itni choti hai ki ants bhi ignore karti hai 🐜🚶‍♂️",
+"%s Bc tu paida hua toh hospital ki fuse ud gayi 💡😂🔌",
+"%s Bc teri behen ko dekh ke Android hang ho gaya 📵💀📱",
+"%s Bc tu itna ganda hai ki gutter bhi muh pher leta hai 🚽🤢🤮",
+"%s Bc teri shakal se mujhe constipation ho gayi 💩😖",
+"%s Bc tere baap ne nasbandi karwa li, tujhe dekh ke 💀🤣✂️",
+"%s Bc tu itna chutiya hai ki ChatGPT server crash ho gaya 🤖😂📉",
+"%s Bc teri maa ki jaw line dekh ke bulldog gym join kar liya 🐶😹🏋️‍♂️",
+"%s Bc teri shakal se phone ka screen crack ho gaya 📱💥🚫",
+"%s Bc tere ghar me aaina banned hai, khudkushi karta hai 🪞😂💀",
+"%s Bc tu itna useless hai ki WiFi bhi connect nahi hota 📶🤡🚫",
+"%s Bc teri shakal dekh ke Google Earth coordinates change karta hai 🌍😂📍",
+"%s Bc tere paas attitude Shoaib Akhtar se zyada, talent zero 🤣🏏",
+"%s Bc teri behen ka Insta profile bhi tere se ganda 📸💀🤳",
+"%s Bc teri shakal se bhoot bhi bhaag jate hai, transfer ho jata hai 👻🏃‍♂️🏚️",
+"%s Bc teri maa ne tujhe godh me liya toh kaali billi guzri 🐈‍⬛😹🧿",
+"%s Bc tu itna kaala hai ki bijli bhi darti hai 🌚😂⚡",
+"%s Bc teri shakal se Facebook algorithm change karta hai 📱🤡🚫",
+"%s Bc teri personality dekh ke PD classes band ho jati hai 😭📚",
+"%s Bc tera baap bhi tujhe orphanage bhejne ka sochta hai 🏠💀👶",
+"%s Bc tu itna bhookha hai ki teri maa ne bhikhari ka khana diya 🍽️🤣🐕",
+"%s Bc teri shakal dekh ke Nikon ne business band kar diya 📷😭🏢",
+"%s Bc teri behen ke nakhre dekh ke Shahrukh rickshaw chala raha hai 🎬😂🛺",
+"%s Bc teri aukaat itni hai ki maa bhi WhatsApp pe block karti hai 🤷‍♂️💀📵",
+"%s Bc teri shakal dekh ke doctor ne stethoscope phenk diya 🩺😭🏥",
+"%s Bc tu itna mota hai ki gravity bhi darti hai 🌍😱🧲",
+"%s Bc teri maa ki cooking dekh ke MasterChef band ho gaya 🍳🤢📺",
+"%s Bc tere face pe itne daane hai ki Google Maps continent declare karta hai 🗺️😂🌋",
+"%s Bc teri shakal se sapne me horror movie ban gayi 🎬💀👻",
+"%s Bc tu itna gareeb hai ki jeb me polluted hawa rehti hai 🍃🤡💸",
+"%s Bc teri behen ka makeup dekh ke clown circus join karta hai 🤡😂🎪",
+"%s Bc teri shakal se eyes permanent damage, chashma mila 👓😭💀",
+"%s Bc tu paida hua toh maa boli 'ye mera nahi' 🤱😂💔",
+"%s Bc teri maa ki shakal dekh ke aliens planet wapas gaye 👽🚀😱",
+"%s Bc teri shakal dekh ke Photoshop kaam chhod deta hai 🤷‍♂️😂🖼️",
+"%s Bc tu itna susu hai ki toilet me aag lag jati hai 🚽🔥💀",
+"%s Bc teri behen ka dance dekh ke naagin ruk gayi 🐍😭💃",
+"%s Bc teri shakal se girlfriend bhi bhaag gayi 💔😂🏃‍♀️",
+"%s Bc teri aukaat itni hai ki reflection bhi muh pher leta hai 🪞😹💀",
+"%s Bc teri maa ki chudail shakal dekh ke Halloween cancel 🎃😂👻",
+"%s Bc tu itna chutiya hai ki Google bhi 'no results' deta hai 🔍🤡📭",
+"%s Bc teri shakal se camera lens phat gaya 📸💥😭",
+"%s Bc teri behen ka figure bamboo se bhi straight 🎋😂📏",
+"%s Bc teri maa ki umar badh gayi tension se 🎂😭💀",
+"%s Bc tu itna ganda hai ki kachra bhi social distancing karta hai 🗑️😂📏",
+"%s Bc teri shakal dekh ke mirror resign de deta hai 🪞📝😭",
+"%s Bc teri behen ki shakal se medical treatment chahiye 👁️💀💉",
+"%s Bc tu paida hua toh nurse ne ulta pakad ke godh me daala 🔄😂👶",
+"%s Bc teri maa ki shakal dekh ke Sundar Pichai bhi confuse 🗺️😹📵",
+"%s Bc teri shakal se mera phone explode ho gaya tha 💥📱😭",
+"%s Bc tu itna useless hai ki WiFi password bhi nahi mila 📶🤡💀",
+"%s Bc teri behen ki shakal dekh ke Modi ji ne India chhod diya 🇮🇳😂🏃",
+"%s Bc teri shakal se subah kharab ho jati hai ⏰🤢😭",
+"%s Bc teri maa ki cooking dekh ke aag bhi sharma gayi 🔥😹🍳",
+"%s Bc tu itna kaala hai ki kaale bhi reject karte hai 🌚🤡🚫",
+"%s Bc teri shakal se aaina tod diya, insurance nahi mila 🪞💥😭",
+"%s Bc teri behen ka nakhra dekh ke Devdas wapas aa gaya 🎬😂😭",
+"%s Bc teri shakal dekh ke Google ne AI shutdown kar diya 🤖💀🚫",
+"%s Bc tu itna gareeb hai ki attitude bhara hai jeb me 🍃😂💸",
+"%s Bc teri maa ki shakal dekh ke bhagwan ne aankhein band kar li 🛕😭👁️",
+"%s Bc teri shakal se ex wapas bhaag gayi 💔😂🏃‍♀️",
+"%s Bc tu paida hua toh maa ne orphanage de diya 🏠😂👶",
+"%s Bc teri behen ki shakal dekh ke Rihanna ne makeup chhod diya 💄😭💀",
+"%s Bc teri shakal dekh ke WiFi weak ho jata hai 📶🤡💀",
+"%s Bc tu itna ganda hai ki kachre ka dabba muh pher leta hai 🗑️😂🤮",
+"%s Bc teri maa ki shakal dekh ke doctor ne practice chhod di 🩺😭💀",
+"%s Bc teri shakal se earthquake aaya tha 🌍😂📉",
+"%s Bc teri behen ka figure bamboo se bhi straight 🎋😹💀",
+"%s Bc tu itna bhookha hai ki kachre se khana khaya, CCTV proof 🎥😂🍽️",
+"%s Bc teri shakal dekh ke camera battery drain kar diya 🔋💀📸",
+"%s Bc teri maa ki chappal retire ho gayi 🩴😭🏖️",
+"%s Bc tu itna chutiya hai ki class 1 me fail 📚😂💀",
+"%s Bc teri shakal dekh ke mirror ne suicide kar liya 🪞💀💔",
+"%s Bc teri behen ki shakal dekh ke Sunny Leone sharma gayi 🎬😂💀",
+"%s Bc teri maa ki shakal dekh ke bhagwan resign de deta hai 🛕📝😭",
+"%s Bc tu paida hua toh hospital staff bhaag gaya 🏥🏃‍♂️😂",
+"%s Bc teri shakal se eyesight kharab, chashma mila 👓💀😭",
+"%s Bc tu itna gareeb hai ki bhikhari se paisa maanga 💸😂🐕",
+"%s Bc teri shakal dekh ke COVID mask pehen ke bhaaga 😷😂🦠",
+"%s Bc teri behen ka dance dekh ke naagin sharma gayi 🐍😭💃",
+"%s Bc teri maa ki cooking dekh ke MasterChef band 📺🤢🍳",
+"%s Bc tu itna ganda hai ki gutter muh pher leta hai 🚽😂🤮",
+"%s Bc teri shakal se subah kharab hoti hai ⏰🤢😭",
+"%s Bc teri behen ki shakal dekh ke Modi ne India chhoda 🇮🇳😂🏃",
+"%s Bc teri maa ki shakal dekh ke ghost bhaag gaye 👻😂🏃",
+"%s Bc tu itna susu hai ki toilet me aag lagti hai 🚽🔥💀",
+"%s Bc teri shakal dekh ke Instagram algorithm change karta hai 📱😂💀",
+"%s Bc teri behen ka makeup dekh ke clown complex me gaya 🤡😭🎪",
+"%s Bc teri maa ki jaw line dekh ke bulldog gym gaya 🐶😹🏋️‍♂️",
+"%s Bc tu itna useless hai ki shadow bhi chhod deta hai 🌑😂💀",
+"%s Bc teri shakal se eyes ko damage, chashma 👓😭💀",
+"%s Bc teri behen ki shakal dekh ke Rihanna makeup chhod di 💄😭💀",
+"%s Bc teri maa ki shakal dekh ke Sundar Pichai confuse 🗺️😹📵",
+"%s Bc tu paida hua toh nurse ne paise wapas kiye 💸😂🏥",
+"%s Bc teri shakal se girlfriend bhaag gayi 💔😂🏃‍♀️",
+"%s Bc teri behen ka rate bhi discount me bik raha, koi nahi khareedta 🛒🤡📉",
+"%s Bc teri maa ki shakal dekh ke Halloween cancel 🎃😂👻",
+"%s Bc tu itna kaala hai ki kaale bhi reject karte hai 🌚🤡🚫",
+"%s Bc teri shakal dekh ke Google AI shutdown 🤖💀🚫",
+"%s Bc teri behen ka Insta profile bhi ganda, filters fail 📸💀🤳",
+"%s Bc teri maa ki shakal dekh ke aliens planet wapas 👽🚀😱",
+"%s Bc tu itna mota hai ki gravity bhi darti hai 🌍😱🧲",
+"%s Bc teri shakal dekh ke CCTV lens tod diya 📷🔨",
+"%s Bc teri behen ki shakal dekh ke Sunny Leone sharma gayi 🎬😂💀",
+"%s Bc teri maa ki shakal dekh ke chudail complex me gayi 👻😹🧟‍♀️",
+"%s Bc tu itna chutiya hai ki ChatGPT server crash 🤖😂📉",
+"%s Bc teri shakal dekh ke Photoshop kaam chhod deta hai 🤷‍♂️😂🖼️",
+"%s Bc teri behen ke nakhre dekh ke Shahrukh rickshaw chalata hai 🎬😂🛺",
+"%s Bc teri maa ki cooking dekh ke aag sharma gayi 🔥😹🍳",
+"%s Bc tu itna gareeb hai ki polluted hawa jeb me 🍃🤡💸",
+"%s Bc teri shakal se earthquake aaya tha 🌍😂📉",
+"%s Bc teri behen ka nakhra dekh ke Devdas wapas 🎬😂😭",
+"%s Bc teri maa ki shakal dekh ke bhagwan ne aankhein band ki 🛕😭👁️",
+"%s Bc tu paida hua toh maa ne orphanage bola 🏠😂👶",
+"%s Bc teri shakal se ex bhi bhaag gayi 💔😂🏃‍♀️",
+"%s Bc teri behen ki shakal dekh ke camera battery drain 🔋💀📸",
+"%s Bc teri maa ki shakal dekh ke doctor practice chhod di 🩺😭💀",
+"%s Bc tu itna ganda hai ki kachre ka dabba muh pher leta hai 🗑️😂🤮",
+"%s Bc teri shakal dekh ke mirror suicide 🪞💀💔",
+"%s Bc teri behen ka dance dekh ke naagin sharma gayi 🐍😭💃",
+"%s Bc teri maa ki chappal bhi tujhe maar ke retire ho gayi 🩴😭🏖️",
+"%s Bc tu itna chutiya hai ki teri maa ne tujhe class 1 me bhi fail kar diya 📚😂💀",
+"%s Bc teri shakal se meri eyesight kharab ho gayi, chashma mila 👓💀😭",
+"%s Bc teri behen ki shakal dekh ke COVID bhi darr gaya 😷😂🦠",
+"%s Bc teri maa ki shakal dekh ke hospital staff bhaag gaya, strike 🏥🏃‍♂️😂",
+"%s Bc tu paida hua toh doctor ne maafi maang li 😭😂🏥",
+"%s Bc teri shakal dekh ke road pe accident ho jate hai, traffic jam 🚗💥🚓",
+"%s Bc teri maa ki shakal se chudail bhi complex me chali gayi 👻😹🧟‍♀️",
+"%s Bc tujhe dekh ke bhains bhi hassen lagi aur doodh band kar diya 🐃😂🥛",
+"%s Bc teri aukaat itni choti hai ki ants bhi ignore karti hai 🐜🚶‍♂️",
+"%s Bc tu paida hua toh hospital ki fuse ud gayi 💡😂🔌",
+"%s Bc teri behen ko dekh ke Android hang ho gaya 📵💀📱",
+"%s Bc tu itna ganda hai ki gutter bhi muh pher leta hai 🚽🤢🤮",
+"%s Bc teri shakal se mujhe constipation ho gayi 💩😖",
+"%s Bc tere baap ne nasbandi karwa li, tujhe dekh ke 💀🤣✂️",
+"%s Bc tu itna chutiya hai ki ChatGPT server crash ho gaya 🤖😂📉",
+"%s Bc teri maa ki jaw line dekh ke bulldog gym join kar liya 🐶😹🏋️‍♂️",
+"%s Bc teri shakal se phone ka screen crack ho gaya 📱💥🚫",
+"%s Bc tere ghar me aaina banned hai, khudkushi karta hai 🪞😂💀",
+"%s Bc tu itna useless hai ki WiFi bhi connect nahi hota 📶🤡🚫",
+"%s Bc teri shakal dekh ke Google Earth coordinates change karta hai 🌍😂📍",
+"%s Bc tere paas attitude Shoaib Akhtar se zyada, talent zero 🤣🏏",
+"%s Bc teri behen ka Insta profile bhi tere se ganda 📸💀🤳",
+"%s Bc teri shakal se bhoot bhi bhaag jate hai, transfer ho jata hai 👻🏃‍♂️🏚️",
+"%s Bc teri maa ne tujhe godh me liya toh kaali billi guzri 🐈‍⬛😹🧿",
+"%s Bc tu itna kaala hai ki bijli bhi darti hai 🌚😂⚡",
+"%s Bc teri shakal se Facebook algorithm change karta hai 📱🤡🚫",
+"%s Bc teri personality dekh ke PD classes band ho jati hai 😭📚",
+"%s Bc tera baap bhi tujhe orphanage bhejne ka sochta hai 🏠💀👶",
+"%s Bc tu itna bhookha hai ki teri maa ne bhikhari ka khana diya 🍽️🤣🐕",
+"%s Bc teri shakal dekh ke Nikon ne business band kar diya 📷😭🏢",
+"%s Bc teri behen ke nakhre dekh ke Shahrukh rickshaw chala raha hai 🎬😂🛺",
+"%s Bc teri aukaat itni hai ki maa bhi WhatsApp pe block karti hai 🤷‍♂️💀📵",
+"%s Bc teri shakal dekh ke doctor ne stethoscope phenk diya 🩺😭🏥",
+"%s Bc tu itna mota hai ki gravity bhi darti hai 🌍😱🧲",
+"%s Bc teri maa ki cooking dekh ke MasterChef band ho gaya 🍳🤢📺",
+"%s Bc tere face pe itne daane hai ki Google Maps continent declare karta hai 🗺️😂🌋",
+"%s Bc teri shakal se sapne me horror movie ban gayi 🎬💀👻",
+"%s Bc tu itna gareeb hai ki jeb me polluted hawa rehti hai 🍃🤡💸",
+"%s Bc teri behen ka makeup dekh ke clown circus join karta hai 🤡😂🎪",
+"%s Bc teri shakal se eyes permanent damage, chashma mila 👓😭💀",
+"%s Bc tu paida hua toh maa boli 'ye mera nahi' 🤱😂💔",
+"%s Bc teri maa ki shakal dekh ke aliens planet wapas gaye 👽🚀😱",
+"%s Bc teri shakal dekh ke Photoshop kaam chhod deta hai 🤷‍♂️😂🖼️",
+"%s Bc tu itna susu hai ki toilet me aag lag jati hai 🚽🔥💀",
+"%s Bc teri behen ka dance dekh ke naagin ruk gayi 🐍😭💃",
+"%s Bc teri shakal se girlfriend bhi bhaag gayi 💔😂🏃‍♀️",
+"%s Bc teri aukaat itni hai ki reflection bhi muh pher leta hai 🪞😹💀",
+"%s Bc teri maa ki chudail shakal dekh ke Halloween cancel 🎃😂👻",
+"%s Bc tu itna chutiya hai ki Google bhi 'no results' deta hai 🔍🤡📭",
+"%s Bc teri shakal se camera lens phat gaya 📸💥😭",
+"%s Bc teri behen ka figure bamboo se bhi straight 🎋😂📏",
+"%s Bc teri maa ki umar badh gayi tension se 🎂😭💀",
+"%s Bc tu itna ganda hai ki kachra bhi social distancing karta hai 🗑️😂📏",
+"%s Bc teri shakal dekh ke mirror resign de deta hai 🪞📝😭",
+"%s Bc teri behen ki shakal se medical treatment chahiye 👁️💀💉",
+"%s Bc tu paida hua toh nurse ne ulta pakad ke godh me daala 🔄😂👶",
+"%s Bc teri maa ki shakal dekh ke Sundar Pichai bhi confuse 🗺️😹📵",
+"%s Bc teri shakal se mera phone explode ho gaya tha 💥📱😭",
+"%s Bc tu itna useless hai ki WiFi password bhi nahi mila 📶🤡💀",
+"%s Bc teri behen ki shakal dekh ke Modi ji ne India chhod diya 🇮🇳😂🏃",
+"%s Bc teri shakal se subah kharab ho jati hai ⏰🤢😭",
+"%s Bc teri maa ki cooking dekh ke aag bhi sharma gayi 🔥😹🍳",
+"%s Bc tu itna kaala hai ki kaale bhi reject karte hai 🌚🤡🚫",
+"%s Bc teri shakal se aaina tod diya, insurance nahi mila 🪞💥😭",
+"%s Bc teri behen ka nakhra dekh ke Devdas wapas aa gaya 🎬😂😭",
+"%s Bc teri shakal dekh ke Google ne AI shutdown kar diya 🤖💀🚫",
+"%s Bc tu itna gareeb hai ki attitude bhara hai jeb me 🍃😂💸",
+"%s Bc teri maa ki shakal dekh ke bhagwan ne aankhein band kar li 🛕😭👁️",
+"%s Bc teri shakal se ex wapas bhaag gayi 💔😂🏃‍♀️",
+"%s Bc tu paida hua toh maa ne orphanage de diya 🏠😂👶",
+"%s Bc teri behen ki shakal dekh ke Rihanna ne makeup chhod diya 💄😭💀",
+"%s Bc teri shakal dekh ke WiFi weak ho jata hai 📶🤡💀",
+"%s Bc tu itna ganda hai ki kachre ka dabba muh pher leta hai 🗑️😂🤮",
+"%s Bc teri maa ki shakal dekh ke doctor ne practice chhod di 🩺😭💀",
+"%s Bc teri shakal se earthquake aaya tha 🌍😂📉",
+"%s Bc teri behen ka figure bamboo se bhi straight 🎋😹💀",
+"%s Bc tu itna bhookha hai ki kachre se khana khaya, CCTV proof 🎥😂🍽️",
+"%s Bc teri shakal dekh ke camera battery drain kar diya 🔋💀📸",
+"%s Bc teri maa ki chappal retire ho gayi 🩴😭🏖️",
+"%s Bc tu itna chutiya hai ki class 1 me fail 📚😂💀",
+"%s Bc teri shakal dekh ke mirror ne suicide kar liya 🪞💀💔",
+"%s Bc teri behen ki shakal dekh ke Sunny Leone sharma gayi 🎬😂💀",
+"%s Bc teri maa ki shakal dekh ke bhagwan resign de deta hai 🛕📝😭",
+"%s Bc tu paida hua toh hospital staff bhaag gaya 🏥🏃‍♂️😂",
+"%s Bc teri shakal se eyesight kharab, chashma mila 👓💀😭",
+"%s Bc tu itna gareeb hai ki bhikhari se paisa maanga 💸😂🐕",
+"%s Bc teri shakal dekh ke COVID mask pehen ke bhaaga 😷😂🦠",
+"%s Bc teri behen ka dance dekh ke naagin sharma gayi 🐍😭💃",
+"%s Bc teri maa ki cooking dekh ke MasterChef band 📺🤢🍳",
+"%s Bc tu itna ganda hai ki gutter muh pher leta hai 🚽😂🤮",
+"%s Bc teri shakal se subah kharab hoti hai ⏰🤢😭",
+"%s Bc teri behen ki shakal dekh ke Modi ne India chhoda 🇮🇳😂🏃",
+"%s Bc teri maa ki shakal dekh ke ghost bhaag gaye 👻😂🏃",
+"%s Bc tu itna susu hai ki toilet me aag lagti hai 🚽🔥💀",
+"%s Bc teri shakal dekh ke Instagram algorithm change karta hai 📱😂💀",
+"%s Bc teri behen ka makeup dekh ke clown complex me gaya 🤡😭🎪",
+"%s Bc teri maa ki jaw line dekh ke bulldog gym gaya 🐶😹🏋️‍♂️",
+"%s Bc tu itna useless hai ki shadow bhi chhod deta hai 🌑😂💀",
+"%s Bc teri shakal se eyes ko damage, chashma 👓😭💀",
+"%s Bc teri behen ki shakal dekh ke Rihanna makeup chhod di 💄😭💀",
+"%s Bc teri maa ki shakal dekh ke Sundar Pichai confuse 🗺️😹📵",
+"%s Bc tu paida hua toh nurse ne paise wapas kiye 💸😂🏥",
+"%s Bc teri shakal se girlfriend bhaag gayi 💔😂🏃‍♀️",
+"%s Bc teri behen ka rate bhi discount me bik raha, koi nahi khareedta 🛒🤡📉",
+"%s Bc teri maa ki shakal dekh ke Halloween cancel 🎃😂👻",
+"%s Bc tu itna kaala hai ki kaale bhi reject karte hai 🌚🤡🚫",
+"%s Bc teri shakal dekh ke Google AI shutdown 🤖💀🚫",
+"%s Bc teri behen ka Insta profile bhi ganda, filters fail 📸💀🤳",
+"%s Bc teri maa ki shakal dekh ke aliens planet wapas 👽🚀😱",
+"%s Bc tu itna mota hai ki gravity bhi darti hai 🌍😱🧲",
+"%s Bc teri shakal dekh ke CCTV lens tod diya 📷🔨",
+"%s Bc teri behen ki shakal dekh ke Sunny Leone sharma gayi 🎬😂💀",
+"%s Bc teri maa ki shakal dekh ke chudail complex me gayi 👻😹🧟‍♀️",
+"%s Bc tu itna chutiya hai ki ChatGPT server crash 🤖😂📉",
+"%s Bc teri shakal dekh ke Photoshop kaam chhod deta hai 🤷‍♂️😂🖼️",
+"%s Bc teri behen ke nakhre dekh ke Shahrukh rickshaw chalata hai 🎬😂🛺",
+"%s Bc teri maa ki cooking dekh ke aag sharma gayi 🔥😹🍳",
+"%s Bc tu itna gareeb hai ki polluted hawa jeb me 🍃🤡💸",
+"%s Bc teri shakal se earthquake aaya tha 🌍😂📉",
+"%s Bc teri behen ka nakhra dekh ke Devdas wapas 🎬😂😭",
+"%s Bc teri maa ki shakal dekh ke bhagwan ne aankhein band ki 🛕😭👁️",
+"%s Bc tu paida hua toh maa ne orphanage bola 🏠😂👶",
+"%s Bc teri shakal se ex bhi bhaag gayi 💔😂🏃‍♀️",
+"%s Bc teri behen ki shakal dekh ke camera battery drain 🔋💀📸",
+"%s Bc teri maa ki shakal dekh ke doctor practice chhod di 🩺😭💀",
+"%s Bc tu itna ganda hai ki kachre ka dabba muh pher leta hai 🗑️😂🤮",
+"%s Bc teri shakal dekh ke mirror suicide 🪞💀💔",
+"%s Bc teri behen ka dance dekh ke naagin sharma gayi 🐍😭💃",
+"%s Bc teri maa ki chappal retire ho gayi 🩴😭🏖️",
+"%s Bc tu itna chutiya hai ki class 1 me fail 📚😂💀",
+"%s Bc teri shakal se eyesight kharab, chashma 👓💀😭",
+"%s Bc teri behen ki shakal dekh ke COVID bhi darr gaya 😷😂🦠",
+"%s Bc teri maa ki shakal dekh ke hospital staff bhaag gaya 🏥🏃‍♂️😂",
+"%s Bc tu paida hua toh doctor ne maafi maang li 😭😂🏥",
+"%s Bc teri shakal dekh ke road pe accident 🚗💥🚓",
+"%s Bc teri maa ki shakal dekh ke chudail complex me gayi 👻😹🧟‍♀️",
+"%s Bc tujhe dekh ke bhains hassen lagi 🐃😂🥛",
+"%s Bc teri aukaat choti, ants bhi ignore karti hai 🐜🚶‍♂️",
+"%s Bc tu paida hua toh fuse ud gayi 💡😂🔌",
+"%s Bc teri behen dekh ke Android hang 📵💀📱",
+"%s Bc tu itna ganda hai ki gutter muh pher leta hai 🚽🤢🤮",
+"%s Bc teri shakal se constipation ho gayi 💩😖",
+"%s Bc tere baap ne nasbandi karwa li 💀🤣✂️",
+"%s Bc tu itna chutiya hai ki ChatGPT crash 🤖😂📉",
+"%s Bc teri maa ki jaw line dekh ke bulldog gym gaya 🐶😹🏋️‍♂️",
+"%s Bc teri shakal se phone crack 📱💥🚫",
+"%s Bc tere ghar me aaina banned 🪞😂💀",
+"%s Bc tu itna useless hai ki WiFi connect nahi 📶🤡🚫",
+"%s Bc teri shakal dekh ke Google Earth coordinates change 🌍😂📍",
+"%s Bc tere paas attitude Shoaib se zyada, talent zero 🤣🏏",
+"%s Bc teri behen ka Insta bhi ganda 📸💀🤳",
+"%s Bc teri shakal se bhoot bhaag jate hai 👻🏃‍♂️🏚️",
+"%s Bc teri maa ne godh me liya toh kaali billi 🐈‍⬛😹🧿",
+"%s Bc tu itna kaala hai ki bijli darti hai 🌚😂⚡",
+"%s Bc teri shakal se Facebook ban karta hai 📱🤡🚫",
+"%s Bc teri personality se PD classes band 😭📚",
+"%s Bc tera baap orphanage bhejna chahta hai 🏠💀👶",
+"%s Bc tu itna bhookha hai ki bhikhari ka khana khaya 🍽️🤣🐕",
+"%s Bc teri shakal dekh ke Nikon business band 📷😭🏢",
+"%s Bc teri behen ke nakhre dekh ke Shahrukh rickshaw 🎬😂🛺",
+"%s Bc teri aukaat itni ki maa bhi WhatsApp pe block 🤷‍♂️💀📵",
+"%s Bc teri shakal dekh ke doctor stethoscope phenk diya 🩺😭🏥",
+"%s Bc tu itna mota hai ki gravity darti hai 🌍😱🧲",
+"%s Bc teri maa ki cooking dekh ke MasterChef band 🍳🤢📺",
+"%s Bc face pe itne daane, Google Maps continent declare 🗺️😂🌋",
+"%s Bc teri shakal se sapne horror movie 🎬💀👻",
+"%s Bc tu itna gareeb hai ki jeb me polluted hawa 🍃🤡💸",
+"%s Bc teri behen ka makeup dekh ke clown circus 🎪🤡😂",
+"%s Bc teri shakal se eyes damage, chashma 👓😭💀",
+"%s Bc tu paida hua toh maa boli 'mera nahi' 🤱😂💔",
+"%s Bc teri maa ki shakal dekh ke aliens planet wapas 👽🚀😱",
+"%s Bc teri shakal dekh ke Photoshop kaam chhod 🤷‍♂️😂🖼️",
+"%s Bc tu itna susu hai ki toilet me aag 🚽🔥💀",
+"%s Bc teri behen ka dance dekh ke naagin ruk gayi 🐍😭💃",
+"%s Bc teri shakal se girlfriend bhaag gayi 💔😂🏃‍♀️",
+"%s Bc teri aukaat itni ki reflection bhi muh pher 🪞😹💀",
+"%s Bc teri maa ki chudail shakal se Halloween cancel 🎃😂👻",
+"%s Bc tu itna chutiya hai ki Google 'no results' 🔍🤡📭",
+"%s Bc teri shakal se camera lens phat 📸💥😭",
+"%s Bc teri behen ka figure bamboo se straight 🎋😂📏",
+"%s Bc teri maa ki umar badh gayi 🎂😭💀",
+"%s Bc tu itna ganda hai ki kachra social distancing 🗑️😂📏",
+"%s Bc teri shakal dekh ke mirror resign 🪞📝😭",
+"%s Bc teri behen ki shakal se medical treatment 👁️💀💉",
+"%s Bc tu paida hua toh nurse ne ulta pakad ke daala 🔄😂👶",
+"%s Bc teri maa ki shakal dekh ke Sundar Pichai confuse 🗺️😹📵",
+"%s Bc teri shakal se phone explode 💥📱😭",
+"%s Bc tu itna useless hai ki WiFi password bhi nahi 📶🤡💀",
+"%s Bc teri behen ki shakal dekh ke Modi ne India chhoda 🇮🇳😂🏃",
+"%s Bc teri shakal se subah kharab ⏰🤢😭",
+"%s Bc teri maa ki cooking dekh ke aag sharma gayi 🔥😹🍳",
+"%s Bc tu itna kaala hai ki kaale reject karte hai 🌚🤡🚫",
+"%s Bc teri shakal se aaina toda 🪞💥😭",
+"%s Bc teri behen ka nakhra dekh ke Devdas wapas 🎬😂😭",
+"%s Bc teri shakal dekh ke Google AI shutdown 🤖💀🚫",
+"%s Bc tu itna gareeb hai ki attitude bhara jeb me 🍃😂💸",
+"%s Bc teri maa ki shakal dekh ke bhagwan ne aankhein band 🛕😭👁️",
+"%s Bc teri shakal se ex bhi bhaag gayi 💔😂🏃‍♀️",
+"%s Bc tu paida hua toh maa ne orphanage bola 🏠😂👶",
+"%s Bc teri behen ki shakal dekh ke Rihanna ne makeup chhoda 💄😭💀",
+"%s Bc teri shakal dekh ke WiFi weak 📶🤡💀",
+"%s Bc tu itna ganda hai ki kachre ka dabba muh pher leta hai 🗑️😂🤮",
+"%s Bc teri maa ki shakal dekh ke doctor practice chhodi 🩺😭💀",
+"%s Bc teri shakal se earthquake aaya tha 🌍😂📉",
+"%s Bc teri behen ka figure bamboo se straight 🎋😹💀",
+"%s Bc tu itna bhookha hai ki kachre se khaya 🎥😂🍽️",
+"%s Bc teri shakal dekh ke camera battery drain 🔋💀📸",
+"%s Bc teri maa ki chappal retire 🩴😭🏖️",
+"%s Bc tu itna chutiya hai ki class 1 me fail 📚😂💀",
+"%s Bc teri shakal dekh ke mirror suicide 🪞💀💔",
+"%s Bc teri behen ki shakal dekh ke Sunny Leone sharma gayi 🎬😂💀",
+"%s Bc teri maa ki shakal dekh ke bhagwan resign 🛕📝😭",
+"%s Bc tu paida hua toh hospital staff bhaag 🏥🏃‍♂️😂",
+"%s Bc teri shakal se eyesight kharab, chashma 👓💀😭",
+"%s Bc tu itna gareeb hai ki bhikhari se paisa maanga 💸😂🐕",
+"%s Bc teri shakal dekh ke COVID bhi darr gaya 😷😂🦠",
+"%s Bc teri behen ka dance dekh ke naagin sharma gayi 🐍😭💃",
+"%s Bc teri maa ki cooking dekh ke MasterChef band 📺🤢🍳",
+"%s Bc tu itna ganda hai ki gutter muh pher leta hai 🚽😂🤮",
+"%s Bc teri shakal se subah kharab ⏰🤢😭",
+"%s Bc teri behen ki shakal dekh ke Modi ne India chhoda 🇮🇳😂🏃",
+"%s Bc teri maa ki shakal dekh ke ghost bhaag 👻😂🏃",
+"%s Bc tu itna susu hai ki toilet me aag 🚽🔥💀",
+"%s Bc teri shakal dekh ke Instagram algorithm change 📱😂💀",
+"%s Bc teri behen ka makeup dekh ke clown complex 🤡😭🎪",
+"%s Bc teri maa ki jaw line dekh ke bulldog gym 🐶😹🏋️‍♂️",
+"%s Bc tu itna useless hai ki shadow bhi chhod 🌑😂💀",
+"%s Bc teri shakal se eyes damage, chashma 👓😭💀",
+"%s Bc teri behen ki shakal dekh ke Rihanna makeup chhodi 💄😭💀",
+"%s Bc teri maa ki shakal dekh ke Sundar Pichai confuse 🗺️😹📵",
+"%s Bc tu paida hua toh nurse ne paise wapas 💸😂🏥",
+"%s Bc teri shakal se girlfriend bhaag 💔😂🏃‍♀️",
+"%s Bc teri behen ka rate discount me bik raha 🛒🤡📉",
+"%s Bc teri maa ki shakal dekh ke Halloween cancel 🎃😂👻",
+"%s Bc tu itna kaala hai ki kaale reject 🌚🤡🚫",
+"%s Bc teri shakal dekh ke Google AI shutdown 🤖💀🚫",
+"%s Bc teri behen ka Insta bhi ganda, filters fail 📸💀🤳",
+"%s Bc teri maa ki shakal dekh ke aliens planet wapas 👽🚀😱",
+"%s Bc tu itna mota hai ki gravity darti hai 🌍😱🧲",
+"%s Bc teri shakal dekh ke CCTV lens todi 📷🔨",
+"%s Bc teri behen ki shakal dekh ke Sunny Leone sharma gayi 🎬😂💀",
+"%s Bc teri maa ki shakal dekh ke chudail complex me gayi 👻😹🧟‍♀️",
+"%s Bc tu itna chutiya hai ki ChatGPT crash 🤖😂📉",
+"%s Bc teri shakal dekh ke Photoshop kaam chhod 🤷‍♂️😂🖼️",
+"%s Bc teri behen ke nakhre dekh ke Shahrukh rickshaw 🎬😂🛺",
+"%s Bc teri maa ki cooking dekh ke aag sharma 🔥😹🍳",
+"%s Bc tu itna gareeb hai ki polluted hawa jeb me 🍃🤡💸",
+"%s Bc teri shakal se earthquake aaya tha 🌍😂📉",
+"%s Bc teri behen ka nakhra dekh ke Devdas wapas 🎬😂😭",
+"%s Bc teri maa ki shakal dekh ke bhagwan aankhein band 🛕😭👁️",
+"%s Bc tu paida hua toh maa ne orphanage 🏠😂👶",
+}
+
+-- =====================================================
+--              PREFIX POOL
+-- =====================================================
+local randomPrefixes = {
+    "---", "@@@", "_", ":o_O:", "(!)", "🔥", "💀", "😈", "[ATZ]",
+    ">>", "★彡", "⚡", "☠️", "_____Pro", "______", "____Pro",
+    "👑", "😹", "¥¥¥", "\\\\", "$$", "×", "▬▬", "★★★", "▓▓▓",
+    "›››", "=>", ":", ";", "!", "©", "®", "™", "卍", "☯",
+    "🅰🆃🆉", "P R O", "____", "___Pro___", "🅿🆁🅾",
+}
+
+local usedIdx = {}
+
+local function pickRoast()
+    if #usedIdx >= #roasts then usedIdx = {} end
+    local available = {}
+    for i = 1, #roasts do
+        local used = false
+        for _, u in ipairs(usedIdx) do
+            if u == i then used = true break end
+        end
+        if not used then table.insert(available, i) end
+    end
+    local idx = available[math.random(1, #available)]
+    table.insert(usedIdx, idx)
+    return roasts[idx]
+end
+
+-- =====================================================
+--              SPAM LOGIC
+-- =====================================================
+local spamming = false
+local spamThread = nil
+local msgCount = 0
+
+local function getActiveTargets()
+    local list = {}
+    for i = 1, 4 do
+        if targets[i] and targets[i].Parent then table.insert(list, targets[i]) end
+    end
+    return list
+end
+
+local function startSpam()
+    if spamming then return end
+    local active = getActiveTargets()
+    if #active == 0 then
+        Status.Text = "Status: ❌ Select at least 1 target!"
+        Status.TextColor3 = Color3.fromRGB(255, 100, 100)
+        return
+    end
+
+    spamming = true
+    usedIdx = {}
+    msgCount = 0
+    Status.Text = "Status: 🔥 Spamming " .. #active .. " target(s)..."
+    Status.TextColor3 = Color3.fromRGB(120, 255, 140)
+
+    spamThread = task.spawn(function()
+        while spamming do
+            local activeList = getActiveTargets()
+            if #activeList == 0 then
+                spamming = false
+                Status.Text = "Status: ❌ No targets left!"
+                Status.TextColor3 = Color3.fromRGB(255, 100, 100)
+                break
+            end
+
+            local target = activeList[math.random(1, #activeList)]
+            local roastTemplate = pickRoast()
+
+            local finalPrefix = ""
+            if isRandomPrefix then
+                finalPrefix = randomPrefixes[math.random(1, #randomPrefixes)] .. " "
+            else
+                local customP = PrefixBox.Text
+                if customP ~= "" and customP ~= "RANDOM" then
+                    finalPrefix = customP .. " "
+                end
+            end
+
+            local msg = finalPrefix .. string.format(roastTemplate, target.Name)
+            sendChat(msg)
+            msgCount = msgCount + 1
+
+            local delay = tonumber(DelayBox.Text) or 1
+            if delay < 0.5 then delay = 0.5 end
+            task.wait(delay)
+        end
+    end)
+end
+
+local function stopSpam()
+    if not spamming then return end
+    spamming = false
+    Status.Text = "Status: ⏹ Stopped | Sent: " .. msgCount
+    Status.TextColor3 = Color3.fromRGB(255, 160, 160)
+    if spamThread then
+        pcall(function() task.cancel(spamThread) end)
+        spamThread = nil
+    end
+end
+
+StartBtn.MouseButton1Click:Connect(startSpam)
+StopBtn.MouseButton1Click:Connect(stopSpam)
+
+-- =====================================================
+--        LOCAL PLAYER VIP NAME TAG (ATZ ON TOP)
+-- =====================================================
+local function createLocalNameTag(char)
+    local head = char:WaitForChild("Head", 10)
+    if not head then return end
+    local old = head:FindFirstChild("ATZLocalTag")
+    if old then old:Destroy() end
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "ATZLocalTag"
+    billboard.Size = UDim2.new(0, 340, 0, 72)
+    billboard.StudsOffset = Vector3.new(0, 3.6, 0)
+    billboard.AlwaysOnTop = true
+    billboard.Parent = head
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(1, 0, 1, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(8, 0, 16)
+    frame.BackgroundTransparency = 0.1
+    frame.BorderSizePixel = 0
+    frame.Parent = billboard
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 14)
+    corner.Parent = frame
+
+    local grad = Instance.new("UIGradient")
+    grad.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(150, 0, 255)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 0, 0)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(150, 0, 255))
+    }
+    grad.Rotation = 45
+    grad.Parent = frame
+
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = Color3.fromRGB(255, 200, 0)
+    stroke.Thickness = 2.5
+    stroke.Parent = frame
+
+    local lbl = Instance.new("TextLabel")
+    lbl.Size = UDim2.new(1, 0, 1, 0)
+    lbl.BackgroundTransparency = 1
+    lbl.Text = "👑 ATZ SPAMMER ON TOP! 👑"
+    lbl.TextColor3 = Color3.fromRGB(255, 230, 100)
+    lbl.Font = Enum.Font.GothamBlack
+    lbl.TextScaled = true
+    lbl.TextStrokeTransparency = 0
+    lbl.TextStrokeColor3 = Color3.fromRGB(80, 0, 140)
+    lbl.Parent = frame
+
+    task.spawn(function()
+        while billboard.Parent do
+            TweenService:Create(stroke, TweenInfo.new(1.5), {Color = Color3.fromRGB(255, 100, 255)}):Play()
+            task.wait(1.5)
+            if not billboard.Parent then break end
+            TweenService:Create(stroke, TweenInfo.new(1.5), {Color = Color3.fromRGB(255, 200, 0)}):Play()
+            task.wait(1.5)
+        end
+    end)
+end
+
+if LocalPlayer.Character then createLocalNameTag(LocalPlayer.Character) end
+LocalPlayer.CharacterAdded:Connect(createLocalNameTag)
+
+-- =====================================================
+--        OTHER PLAYERS JOIN NOTIFICATION
+-- =====================================================
+local function createJoinNotification(plr)
+    plr.CharacterAdded:Connect(function(char)
+        local head = char:WaitForChild("Head", 10)
+        if head then
+            local billboard = Instance.new("BillboardGui")
+            billboard.Size = UDim2.new(0, 250, 0, 60)
+            billboard.StudsOffset = Vector3.new(0, 3.5, 0)
+            billboard.AlwaysOnTop = true
+            billboard.Parent = head
+
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(1, 0, 1, 0)
+            frame.BackgroundTransparency = 0.3
+            frame.BackgroundColor3 = Color3.fromRGB(20, 5, 30)
+            frame.Parent = billboard
+
+            local corner = Instance.new("UICorner")
+            corner.CornerRadius = UDim.new(0, 10)
+            corner.Parent = frame
+
+            local stroke = Instance.new("UIStroke")
+            stroke.Color = Color3.fromRGB(255, 30, 80)
+            stroke.Thickness = 2
+            stroke.Parent = frame
+
+            local lbl = Instance.new("TextLabel")
+            lbl.Size = UDim2.new(1, 0, 1, 0)
+            lbl.BackgroundTransparency = 1
+            lbl.Text = "🔥 ATZ SPAMMER 🔥\nWelcome " .. plr.Name .. " 💀"
+            lbl.TextColor3 = Color3.fromRGB(255, 100, 150)
+            lbl.Font = Enum.Font.GothamBlack
+            lbl.TextScaled = true
+            lbl.TextStrokeTransparency = 0
+            lbl.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+            lbl.Parent = frame
+
+            task.delay(4, function()
+                if not billboard.Parent then return end
+                local tween = TweenService:Create(frame, TweenInfo.new(1), {BackgroundTransparency = 1})
+                local tween2 = TweenService:Create(lbl, TweenInfo.new(1), {TextTransparency = 1, TextStrokeTransparency = 1})
+                tween:Play()
+                tween2:Play()
+                tween.Completed:Connect(function()
+                    billboard:Destroy()
+                end)
+            end)
+        end
+    end)
+end
+
+for _, plr in ipairs(Players:GetPlayers()) do
+    if plr ~= LocalPlayer then createJoinNotification(plr) end
+end
+Players.PlayerAdded:Connect(function(plr)
+    if plr ~= LocalPlayer then createJoinNotification(plr) end
+end)
+
+-- Hover effects
+local function addHover(btn, normal, hover)
+    btn.MouseEnter:Connect(function() TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = hover}):Play() end)
+    btn.MouseLeave:Connect(function() TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = normal}):Play() end)
+end
+
+addHover(StartBtn, Color3.fromRGB(20, 80, 40), Color3.fromRGB(30, 120, 60))
+addHover(StopBtn, Color3.fromRGB(80, 20, 20), Color3.fromRGB(120, 30, 30))
+addHover(CloseBtn, Color3.fromRGB(255, 30, 60), Color3.fromRGB(255, 80, 100))
+
+
+SideBtn.MouseEnter:Connect(function() TweenService:Create(SideBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(170, 90, 255)}):Play() end)
+SideBtn.MouseLeave:Connect(function() TweenService:Create(SideBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(140, 60, 255)}):Play() end)
+
+-- =====================================================
+--        AUTO LOAD MESSAGE (Sent by LocalPlayer)
+-- =====================================================
+task.spawn(function()
+    task.wait(3)
+    local loadMsg = "___________________Ａᴛɀ ＳＰＡＭＭＥＲ ʜᴀs ʟᴏᴀᴅᴇᴅ Aɪᴛʀᴀᴀᴢ Oɴ Tᴏᴘ_______________________________________________"
+    for attempt = 1, 5 do
+        local ok = pcall(function()
+            local channels = TextChatService:FindFirstChild("TextChannels")
+            if channels then
+                local general = channels:FindFirstChild("RBXGeneral")
+                if general then general:SendAsync(loadMsg) return true end
+            end
+        end)
+        if ok then
+            -- Try legacy fallback too
+            pcall(function()
+                local event = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
+                if event then
+                    local sayMsg = event:FindFirstChild("SayMessageRequest")
+                    if sayMsg then sayMsg:FireServer(loadMsg, "All") end
+                end
+            end)
+            break
+        end
+        task.wait(1)
+    end
+end)
+
+task.wait(0.3)
+openGUI()
+
+print("[ATZ Spammer] VIP Edition Loaded Successfully! ✅🔥 250+ Roasts Ready")
