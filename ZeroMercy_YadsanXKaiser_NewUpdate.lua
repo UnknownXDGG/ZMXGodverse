@@ -250,9 +250,9 @@ local SideBtn = Instance.new("TextButton")
 SideBtn.Name = "SideButton"
 SideBtn.Size = UDim2.new(0, 150, 0, 45)
 SideBtn.Position = UDim2.new(0, 20, 0.5, -22)
-SideBtn.BackgroundColor3 = Color3.fromRGB(140, 60, 255)
+SideBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 75)
 SideBtn.Text = "☠️ Kaiser Papa"
-SideBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+SideBtn.TextColor3 = Color3.fromRGB(240, 240, 240)
 SideBtn.Font = Enum.Font.GothamBold
 SideBtn.TextSize = 15
 SideBtn.BorderSizePixel = 0
@@ -264,14 +264,14 @@ sideCorner.CornerRadius = UDim.new(0, 10)
 sideCorner.Parent = SideBtn
 
 local sideStroke = Instance.new("UIStroke")
-sideStroke.Color = Color3.fromRGB(200, 150, 255)
+sideStroke.Color = Color3.fromRGB(160, 160, 165)
 sideStroke.Thickness = 2
 sideStroke.Parent = SideBtn
 
 local sideGrad = Instance.new("UIGradient")
 sideGrad.Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(180, 80, 255)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(90, 40, 200)),
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(110, 110, 115)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(45, 45, 50)),
 }
 sideGrad.Rotation = 45
 sideGrad.Parent = SideBtn
@@ -284,7 +284,7 @@ Main.Name = "Main"
 Main.AnchorPoint = Vector2.new(0.5, 0.5)
 Main.Size = UDim2.new(0, 0, 0, 0)
 Main.Position = UDim2.new(0.5, 0, 0.5, 0)
-Main.BackgroundColor3 = Color3.fromRGB(12, 8, 18)
+Main.BackgroundColor3 = Color3.fromRGB(22, 22, 25)
 Main.BorderSizePixel = 0
 Main.ClipsDescendants = true
 Main.Visible = false
@@ -295,14 +295,14 @@ mainCorner.CornerRadius = UDim.new(0, 15)
 mainCorner.Parent = Main
 
 local mainStroke = Instance.new("UIStroke")
-mainStroke.Color = Color3.fromRGB(180, 0, 255)
+mainStroke.Color = Color3.fromRGB(130, 130, 135)
 mainStroke.Thickness = 2.5
 mainStroke.Parent = Main
 
 -- Top Bar
 local TopBar = Instance.new("Frame")
 TopBar.Size = UDim2.new(1, 0, 0, 55)
-TopBar.BackgroundColor3 = Color3.fromRGB(20, 10, 30)
+TopBar.BackgroundColor3 = Color3.fromRGB(32, 32, 36)
 TopBar.BorderSizePixel = 0
 TopBar.Parent = Main
 
@@ -313,7 +313,7 @@ topCorner.Parent = TopBar
 local topFix = Instance.new("Frame")
 topFix.Size = UDim2.new(1, 0, 0, 15)
 topFix.Position = UDim2.new(0, 0, 1, -15)
-topFix.BackgroundColor3 = Color3.fromRGB(20, 10, 30)
+topFix.BackgroundColor3 = Color3.fromRGB(32, 32, 36)
 topFix.BorderSizePixel = 0
 topFix.Parent = TopBar
 
@@ -322,7 +322,7 @@ Title.Size = UDim2.new(1, -80, 0, 35)
 Title.Position = UDim2.new(0, 15, 0, 10)
 Title.BackgroundTransparency = 1
 Title.Text = "☠️ KaiserPapaxZM Spammer VIP 🔥"
-Title.TextColor3 = Color3.fromRGB(220, 100, 255)
+Title.TextColor3 = Color3.fromRGB(220, 220, 225)
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Font = Enum.Font.GothamBlack
 Title.TextSize = 20
@@ -332,7 +332,7 @@ Title.Parent = TopBar
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Size = UDim2.new(0, 32, 0, 32)
 CloseBtn.Position = UDim2.new(1, -42, 0, 11)
-CloseBtn.BackgroundColor3 = Color3.fromRGB(255, 30, 60)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(90, 90, 95)
 CloseBtn.Text = "X"
 CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 CloseBtn.Font = Enum.Font.GothamBlack
@@ -345,7 +345,7 @@ closeCorner.CornerRadius = UDim.new(0, 8)
 closeCorner.Parent = CloseBtn
 
 local closeStroke = Instance.new("UIStroke")
-closeStroke.Color = Color3.fromRGB(255, 100, 100)
+closeStroke.Color = Color3.fromRGB(160, 160, 165)
 closeStroke.Thickness = 2
 closeStroke.Parent = CloseBtn
 
@@ -355,7 +355,7 @@ TargetHeader.Size = UDim2.new(1, -30, 0, 20)
 TargetHeader.Position = UDim2.new(0, 15, 0, 65)
 TargetHeader.BackgroundTransparency = 1
 TargetHeader.Text = "🎯 Select Targets (click to cycle):"
-TargetHeader.TextColor3 = Color3.fromRGB(200, 180, 220)
+TargetHeader.TextColor3 = Color3.fromRGB(190, 190, 195)
 TargetHeader.TextXAlignment = Enum.TextXAlignment.Left
 TargetHeader.Font = Enum.Font.GothamBold
 TargetHeader.TextSize = 13
@@ -384,9 +384,9 @@ for i = 1, 4 do
 	local btn = Instance.new("TextButton")
 	btn.Size = UDim2.new(0.5, -6, 0, 42)
 	btn.Position = UDim2.new(((i-1) % 2) * 0.5, ((i-1) % 2) * 8, math.floor((i-1)/2) * 0.5, math.floor((i-1)/2) * 6)
-	btn.BackgroundColor3 = Color3.fromRGB(25, 15, 35)
+	btn.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
 	btn.Text = "Target " .. i .. ": Empty"
-	btn.TextColor3 = Color3.fromRGB(180, 150, 200)
+	btn.TextColor3 = Color3.fromRGB(160, 160, 165)
 	btn.Font = Enum.Font.GothamBold
 	btn.TextSize = 12
 	btn.BorderSizePixel = 0
@@ -397,7 +397,7 @@ for i = 1, 4 do
 	c.Parent = btn
 
 	local s = Instance.new("UIStroke")
-	s.Color = Color3.fromRGB(80, 40, 120)
+	s.Color = Color3.fromRGB(80, 80, 85)
 	s.Thickness = 1.5
 	s.Parent = btn
 
@@ -420,15 +420,15 @@ for i = 1, 4 do
 		if curIdx > #list then
 			targets[i] = nil
 			btn.Text = "Target " .. i .. ": Empty"
-			btn.BackgroundColor3 = Color3.fromRGB(25, 15, 35)
-			s.Color = Color3.fromRGB(80, 40, 120)
-			btn.TextColor3 = Color3.fromRGB(180, 150, 200)
+			btn.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+			s.Color = Color3.fromRGB(80, 80, 85)
+			btn.TextColor3 = Color3.fromRGB(160, 160, 165)
 		else
 			targets[i] = list[curIdx]
 			btn.Text = "Target " .. i .. ": " .. list[curIdx].Name
-			btn.BackgroundColor3 = Color3.fromRGB(60, 20, 80)
-			s.Color = Color3.fromRGB(220, 80, 255)
-			btn.TextColor3 = Color3.fromRGB(255, 220, 255)
+			btn.BackgroundColor3 = Color3.fromRGB(70, 70, 75)
+			s.Color = Color3.fromRGB(200, 200, 205)
+			btn.TextColor3 = Color3.fromRGB(255, 255, 255)
 		end
 	end)
 end
@@ -439,7 +439,7 @@ PrefixLabel.Size = UDim2.new(0, 120, 0, 18)
 PrefixLabel.Position = UDim2.new(0, 15, 0, 195)
 PrefixLabel.BackgroundTransparency = 1
 PrefixLabel.Text = "🏷️ Prefix Mode:"
-PrefixLabel.TextColor3 = Color3.fromRGB(200, 180, 220)
+PrefixLabel.TextColor3 = Color3.fromRGB(190, 190, 195)
 PrefixLabel.TextXAlignment = Enum.TextXAlignment.Left
 PrefixLabel.Font = Enum.Font.GothamBold
 PrefixLabel.TextSize = 13
@@ -448,11 +448,11 @@ PrefixLabel.Parent = Main
 local PrefixBox = Instance.new("TextBox")
 PrefixBox.Size = UDim2.new(0, 100, 0, 32)
 PrefixBox.Position = UDim2.new(0, 15, 0, 216)
-PrefixBox.BackgroundColor3 = Color3.fromRGB(25, 15, 35)
+PrefixBox.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
 PrefixBox.BorderSizePixel = 0
 PrefixBox.Text = "---"
 PrefixBox.PlaceholderText = "Custom Prefix"
-PrefixBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+PrefixBox.TextColor3 = Color3.fromRGB(240, 240, 240)
 PrefixBox.Font = Enum.Font.GothamBold
 PrefixBox.TextSize = 14
 PrefixBox.ClearTextOnFocus = false
@@ -463,16 +463,16 @@ prefixCorner.CornerRadius = UDim.new(0, 8)
 prefixCorner.Parent = PrefixBox
 
 local prefixStroke = Instance.new("UIStroke")
-prefixStroke.Color = Color3.fromRGB(80, 40, 120)
+prefixStroke.Color = Color3.fromRGB(80, 80, 85)
 prefixStroke.Thickness = 1.5
 prefixStroke.Parent = PrefixBox
 
 local RandomPrefixBtn = Instance.new("TextButton")
 RandomPrefixBtn.Size = UDim2.new(0, 130, 0, 32)
 RandomPrefixBtn.Position = UDim2.new(0, 125, 0, 216)
-RandomPrefixBtn.BackgroundColor3 = Color3.fromRGB(40, 20, 60)
+RandomPrefixBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 55)
 RandomPrefixBtn.Text = "Prefix: CUSTOM"
-RandomPrefixBtn.TextColor3 = Color3.fromRGB(220, 150, 255)
+RandomPrefixBtn.TextColor3 = Color3.fromRGB(210, 210, 215)
 RandomPrefixBtn.Font = Enum.Font.GothamBold
 RandomPrefixBtn.TextSize = 13
 RandomPrefixBtn.BorderSizePixel = 0
@@ -483,7 +483,7 @@ randCorner.CornerRadius = UDim.new(0, 8)
 randCorner.Parent = RandomPrefixBtn
 
 local randStroke = Instance.new("UIStroke")
-randStroke.Color = Color3.fromRGB(120, 60, 180)
+randStroke.Color = Color3.fromRGB(110, 110, 115)
 randStroke.Thickness = 1.5
 randStroke.Parent = RandomPrefixBtn
 
@@ -492,14 +492,14 @@ RandomPrefixBtn.MouseButton1Click:Connect(function()
 	isRandomPrefix = not isRandomPrefix
 	if isRandomPrefix then
 		RandomPrefixBtn.Text = "Prefix: RANDOM"
-		RandomPrefixBtn.BackgroundColor3 = Color3.fromRGB(80, 20, 100)
-		RandomPrefixBtn.TextColor3 = Color3.fromRGB(255, 150, 255)
+		RandomPrefixBtn.BackgroundColor3 = Color3.fromRGB(85, 85, 90)
+		RandomPrefixBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 		PrefixBox.Text = "RANDOM"
 		PrefixBox.TextEditable = false
 	else
 		RandomPrefixBtn.Text = "Prefix: CUSTOM"
-		RandomPrefixBtn.BackgroundColor3 = Color3.fromRGB(40, 20, 60)
-		RandomPrefixBtn.TextColor3 = Color3.fromRGB(220, 150, 255)
+		RandomPrefixBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 55)
+		RandomPrefixBtn.TextColor3 = Color3.fromRGB(210, 210, 215)
 		PrefixBox.Text = "---"
 		PrefixBox.TextEditable = true
 	end
@@ -511,7 +511,7 @@ DelayLabel.Size = UDim2.new(0, 120, 0, 18)
 DelayLabel.Position = UDim2.new(0, 275, 0, 195)
 DelayLabel.BackgroundTransparency = 1
 DelayLabel.Text = "⚡ Delay (sec):"
-DelayLabel.TextColor3 = Color3.fromRGB(200, 180, 220)
+DelayLabel.TextColor3 = Color3.fromRGB(190, 190, 195)
 DelayLabel.TextXAlignment = Enum.TextXAlignment.Left
 DelayLabel.Font = Enum.Font.GothamBold
 DelayLabel.TextSize = 13
@@ -520,10 +520,10 @@ DelayLabel.Parent = Main
 local DelayBox = Instance.new("TextBox")
 DelayBox.Size = UDim2.new(0, 100, 0, 32)
 DelayBox.Position = UDim2.new(0, 275, 0, 216)
-DelayBox.BackgroundColor3 = Color3.fromRGB(25, 15, 35)
+DelayBox.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
 DelayBox.BorderSizePixel = 0
 DelayBox.Text = "1"
-DelayBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+DelayBox.TextColor3 = Color3.fromRGB(240, 240, 240)
 DelayBox.Font = Enum.Font.GothamBold
 DelayBox.TextSize = 14
 DelayBox.ClearTextOnFocus = false
@@ -534,7 +534,7 @@ delayCorner.CornerRadius = UDim.new(0, 8)
 delayCorner.Parent = DelayBox
 
 local delayStroke = Instance.new("UIStroke")
-delayStroke.Color = Color3.fromRGB(80, 40, 120)
+delayStroke.Color = Color3.fromRGB(80, 80, 85)
 delayStroke.Thickness = 1.5
 delayStroke.Parent = DelayBox
 
@@ -542,9 +542,9 @@ delayStroke.Parent = DelayBox
 local StartBtn = Instance.new("TextButton")
 StartBtn.Size = UDim2.new(0.5, -22, 0, 45)
 StartBtn.Position = UDim2.new(0, 15, 0, 262)
-StartBtn.BackgroundColor3 = Color3.fromRGB(20, 80, 40)
+StartBtn.BackgroundColor3 = Color3.fromRGB(45, 65, 50)
 StartBtn.Text = "▶ START"
-StartBtn.TextColor3 = Color3.fromRGB(100, 255, 150)
+StartBtn.TextColor3 = Color3.fromRGB(170, 230, 185)
 StartBtn.Font = Enum.Font.GothamBlack
 StartBtn.TextSize = 16
 StartBtn.BorderSizePixel = 0
@@ -555,16 +555,16 @@ startCorner.CornerRadius = UDim.new(0, 8)
 startCorner.Parent = StartBtn
 
 local startStroke = Instance.new("UIStroke")
-startStroke.Color = Color3.fromRGB(0, 255, 100)
+startStroke.Color = Color3.fromRGB(110, 170, 125)
 startStroke.Thickness = 2
 startStroke.Parent = StartBtn
 
 local StopBtn = Instance.new("TextButton")
 StopBtn.Size = UDim2.new(0.5, -22, 0, 45)
 StopBtn.Position = UDim2.new(0.5, 7, 0, 262)
-StopBtn.BackgroundColor3 = Color3.fromRGB(80, 20, 20)
+StopBtn.BackgroundColor3 = Color3.fromRGB(65, 45, 45)
 StopBtn.Text = "■ STOP"
-StopBtn.TextColor3 = Color3.fromRGB(255, 100, 100)
+StopBtn.TextColor3 = Color3.fromRGB(230, 170, 170)
 StopBtn.Font = Enum.Font.GothamBlack
 StopBtn.TextSize = 16
 StopBtn.BorderSizePixel = 0
@@ -575,7 +575,7 @@ stopCorner.CornerRadius = UDim.new(0, 8)
 stopCorner.Parent = StopBtn
 
 local stopStroke = Instance.new("UIStroke")
-stopStroke.Color = Color3.fromRGB(255, 0, 0)
+stopStroke.Color = Color3.fromRGB(170, 110, 110)
 stopStroke.Thickness = 2
 stopStroke.Parent = StopBtn
 
@@ -583,10 +583,10 @@ stopStroke.Parent = StopBtn
 local Status = Instance.new("TextLabel")
 Status.Size = UDim2.new(1, -30, 0, 28)
 Status.Position = UDim2.new(0, 15, 0, 318)
-Status.BackgroundColor3 = Color3.fromRGB(20, 12, 30)
+Status.BackgroundColor3 = Color3.fromRGB(30, 30, 34)
 Status.BorderSizePixel = 0
 Status.Text = "Status: Idle 💤"
-Status.TextColor3 = Color3.fromRGB(180, 180, 200)
+Status.TextColor3 = Color3.fromRGB(185, 185, 190)
 Status.Font = Enum.Font.GothamBold
 Status.TextSize = 13
 Status.Parent = Main
@@ -743,7 +743,6 @@ local function pickRoast()
 	table.insert(usedIdx, idx)
 	return roasts[idx]
 end
-
 -- =====================================================
 --              SPAM LOGIC
 -- =====================================================
@@ -764,7 +763,7 @@ local function startSpam()
 	local active = getActiveTargets()
 	if #active == 0 then
 		Status.Text = "Status: ❌ Select at least 1 target!"
-		Status.TextColor3 = Color3.fromRGB(255, 100, 100)
+		Status.TextColor3 = Color3.fromRGB(220, 140, 140)
 		return
 	end
 
@@ -772,7 +771,7 @@ local function startSpam()
 	usedIdx = {}
 	msgCount = 0
 	Status.Text = "Status: 🔥 Spamming " .. #active .. " target(s)..."
-	Status.TextColor3 = Color3.fromRGB(120, 255, 140)
+	Status.TextColor3 = Color3.fromRGB(160, 220, 175)
 
 	spamThread = task.spawn(function()
 		while spamming do
@@ -780,7 +779,7 @@ local function startSpam()
 			if #activeList == 0 then
 				spamming = false
 				Status.Text = "Status: ❌ No targets left!"
-				Status.TextColor3 = Color3.fromRGB(255, 100, 100)
+				Status.TextColor3 = Color3.fromRGB(220, 140, 140)
 				break
 			end
 
@@ -812,7 +811,7 @@ local function stopSpam()
 	if not spamming then return end
 	spamming = false
 	Status.Text = "Status: ⏹ Stopped | Sent: " .. msgCount
-	Status.TextColor3 = Color3.fromRGB(255, 160, 160)
+	Status.TextColor3 = Color3.fromRGB(210, 170, 170)
 	if spamThread then
 		pcall(function() task.cancel(spamThread) end)
 		spamThread = nil
@@ -840,7 +839,7 @@ local function createLocalNameTag(char)
 
 	local frame = Instance.new("Frame")
 	frame.Size = UDim2.new(1, 0, 1, 0)
-	frame.BackgroundColor3 = Color3.fromRGB(8, 0, 16)
+	frame.BackgroundColor3 = Color3.fromRGB(20, 20, 22)
 	frame.BackgroundTransparency = 0.1
 	frame.BorderSizePixel = 0
 	frame.Parent = billboard
@@ -851,15 +850,15 @@ local function createLocalNameTag(char)
 
 	local grad = Instance.new("UIGradient")
 	grad.Color = ColorSequence.new{
-		ColorSequenceKeypoint.new(0, Color3.fromRGB(150, 0, 255)),
-		ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 0, 0)),
-		ColorSequenceKeypoint.new(1, Color3.fromRGB(150, 0, 255))
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(90, 90, 95)),
+		ColorSequenceKeypoint.new(0.5, Color3.fromRGB(20, 20, 22)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(90, 90, 95))
 	}
 	grad.Rotation = 45
 	grad.Parent = frame
 
 	local stroke = Instance.new("UIStroke")
-	stroke.Color = Color3.fromRGB(255, 200, 0)
+	stroke.Color = Color3.fromRGB(200, 200, 205)
 	stroke.Thickness = 2.5
 	stroke.Parent = frame
 
@@ -867,19 +866,19 @@ local function createLocalNameTag(char)
 	lbl.Size = UDim2.new(1, 0, 1, 0)
 	lbl.BackgroundTransparency = 1
 	lbl.Text = "☠️ JAMES LEE X ZM ON TOP! 👑"
-	lbl.TextColor3 = Color3.fromRGB(255, 230, 100)
+	lbl.TextColor3 = Color3.fromRGB(235, 235, 240)
 	lbl.Font = Enum.Font.GothamBlack
 	lbl.TextScaled = true
 	lbl.TextStrokeTransparency = 0
-	lbl.TextStrokeColor3 = Color3.fromRGB(80, 0, 140)
+	lbl.TextStrokeColor3 = Color3.fromRGB(40, 40, 45)
 	lbl.Parent = frame
 
 	task.spawn(function()
 		while billboard.Parent do
-			TweenService:Create(stroke, TweenInfo.new(1.5), {Color = Color3.fromRGB(255, 100, 255)}):Play()
+			TweenService:Create(stroke, TweenInfo.new(1.5), {Color = Color3.fromRGB(130, 130, 135)}):Play()
 			task.wait(1.5)
 			if not billboard.Parent then break end
-			TweenService:Create(stroke, TweenInfo.new(1.5), {Color = Color3.fromRGB(255, 200, 0)}):Play()
+			TweenService:Create(stroke, TweenInfo.new(1.5), {Color = Color3.fromRGB(220, 220, 225)}):Play()
 			task.wait(1.5)
 		end
 	end)
@@ -903,8 +902,8 @@ local function createJoinNotification(plr)
 
 			local frame = Instance.new("Frame")
 			frame.Size = UDim2.new(1, 0, 1, 0)
-			frame.BackgroundTransparency = 0.3
-			frame.BackgroundColor3 = Color3.fromRGB(20, 5, 30)
+			frame.BackgroundTransparency = 0.25
+			frame.BackgroundColor3 = Color3.fromRGB(28, 28, 32)
 			frame.Parent = billboard
 
 			local corner = Instance.new("UICorner")
@@ -912,7 +911,7 @@ local function createJoinNotification(plr)
 			corner.Parent = frame
 
 			local stroke = Instance.new("UIStroke")
-			stroke.Color = Color3.fromRGB(255, 30, 80)
+			stroke.Color = Color3.fromRGB(150, 150, 155)
 			stroke.Thickness = 2
 			stroke.Parent = frame
 
@@ -920,11 +919,11 @@ local function createJoinNotification(plr)
 			lbl.Size = UDim2.new(1, 0, 1, 0)
 			lbl.BackgroundTransparency = 1
 			lbl.Text = "🔥 KAISER PAPA SPAMMER 🔥\nWelcome " .. plr.Name .. " 💀"
-			lbl.TextColor3 = Color3.fromRGB(255, 100, 150)
+			lbl.TextColor3 = Color3.fromRGB(220, 220, 225)
 			lbl.Font = Enum.Font.GothamBlack
 			lbl.TextScaled = true
 			lbl.TextStrokeTransparency = 0
-			lbl.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+			lbl.TextStrokeColor3 = Color3.fromRGB(15, 15, 18)
 			lbl.Parent = frame
 
 			task.delay(4, function()
@@ -954,12 +953,12 @@ local function addHover(btn, normal, hover)
 	btn.MouseLeave:Connect(function() TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = normal}):Play() end)
 end
 
-addHover(StartBtn, Color3.fromRGB(20, 80, 40), Color3.fromRGB(30, 120, 60))
-addHover(StopBtn, Color3.fromRGB(80, 20, 20), Color3.fromRGB(120, 30, 30))
-addHover(CloseBtn, Color3.fromRGB(255, 30, 60), Color3.fromRGB(255, 80, 100))
+addHover(StartBtn, Color3.fromRGB(45, 65, 50), Color3.fromRGB(60, 85, 65))
+addHover(StopBtn, Color3.fromRGB(65, 45, 45), Color3.fromRGB(85, 60, 60))
+addHover(CloseBtn, Color3.fromRGB(90, 90, 95), Color3.fromRGB(120, 120, 125))
 
-SideBtn.MouseEnter:Connect(function() TweenService:Create(SideBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(170, 90, 255)}):Play() end)
-SideBtn.MouseLeave:Connect(function() TweenService:Create(SideBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(140, 60, 255)}):Play() end)
+SideBtn.MouseEnter:Connect(function() TweenService:Create(SideBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(95, 95, 100)}):Play() end)
+SideBtn.MouseLeave:Connect(function() TweenService:Create(SideBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(70, 70, 75)}):Play() end)
 
 -- =====================================================
 --        AUTO LOAD MESSAGE (Sent by LocalPlayer)
