@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MONKFUSCATOR Obfuscate</title>
+<title>YADSAN PAPA Obfuscate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Instrument+Sans:wght@400;500;600&display=swap">
 <style>
@@ -89,9 +89,9 @@ footer{margin:64px 0 0;padding:26px 0 56px;border-top:1px solid var(--line);colo
 <body>
 <section class="auth-screen" id="authScreen" aria-label="Account login">
 <div class="auth-card">
-<div class="auth-mark">MONKFUSCATOR / ACCESS</div>
+<div class="auth-mark">YADSAN PAPA / ACCESS</div>
 <h1 class="auth-title"><span class="chrome">WELCOME</span><span class="outline">BACK.</span></h1>
-<p class="auth-sub">Sign in to continue to your MONKFUSCATOR workspace.</p>
+<p class="auth-sub">Sign in to continue to your YADSAN PAPA workspace.</p>
 <div class="auth-tabs" role="tablist" aria-label="Account options">
 <button class="auth-tab active" id="loginTab" type="button" role="tab" aria-selected="true">Log in</button>
 <button class="auth-tab" id="signupTab" type="button" role="tab" aria-selected="false">Create account</button>
@@ -108,9 +108,9 @@ footer{margin:64px 0 0;padding:26px 0 56px;border-top:1px solid var(--line);colo
 
 <canvas id="bg" aria-hidden="true"></canvas>
 <main class="wrap" id="appMain" hidden>
-<div class="top"><span class="brand">MONKFUSCATOR</span><div class="account-tools"><span class="chip"><i></i>Encoder online</span><span class="chip" id="accountName">Account</span><button class="sm" id="logoutBtn" type="button">Log out</button></div></div>
+<div class="top"><span class="brand">YADSAN PAPA</span><div class="account-tools"><span class="chip"><i></i>Encoder online</span><span class="chip" id="accountName">Account</span><button class="sm" id="logoutBtn" type="button">Log out</button></div></div>
 <header class="hero">
-<h1><span class="chrome">MONK</span><span class="outline">OBFUSCATE</span><span class="beam"></span></h1>
+<h1><span class="chrome">YADSAN</span><span class="outline">OBFUSCATE</span><span class="beam"></span></h1>
 <p class="lede late">Paste a Lua script and get it back as an encrypted byte array. The bytes are chained, shuffled and checksum-sealed — Level 5 also runs the decoder itself through a randomized-opcode VM. Every build is different.</p>
 </header>
 
@@ -136,14 +136,14 @@ footer{margin:64px 0 0;padding:26px 0 56px;border-top:1px solid var(--line);colo
 <div class="prog"><i id="bar"></i></div>
 <p class="stage" id="stage" aria-live="polite"></p>
 
-<p class="note">Made By SuperMonKxScripts</p>
-<footer>MONKFUSCATOR Obfuscate. Runs entirely in your browser, so your script is never uploaded.</footer>
+<p class="note">Made By Yadsan_Godverse</p>
+<footer>YADSAN PAPA Obfuscate. Runs entirely in your browser, so your script is never uploaded.</footer>
 </main>
 <script>
 (function(){
 var $=function(i){return document.getElementById(i)},d=document.documentElement,rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
 // Browser-only demo authentication; use a trusted backend for production accounts.
-var authMode="login",accountKey="monkfoscator_demo_accounts_v1",sessionKey="monkfoscator_demo_session_v1";
+var authMode="login",accountKey="yadsanpapa_demo_accounts_v1",sessionKey="yadsanpapa_demo_session_v1";
 var authScreen=$("authScreen"),appMain=$("appMain"),authForm=$("authForm");
 function setAuthMode(mode){
  authMode=mode;var signup=mode==="signup";
@@ -283,14 +283,14 @@ body.push("for "+m.I+"=#"+m.SS+",1,-1 do "+m.UNSH+"("+m.D+","+m.SS+"["+m.I+"],"+
 body.push("for "+m.I+"=#"+m.CS+",1,-1 do "+m.UNCI+"("+m.D+","+m.CS+"["+m.I+"],"+m.Nn+") end");
 body.push("local "+m.T+"=0;local "+m.O+"={};for "+m.I+"=1,"+m.Nn+" do "+m.O+"["+m.I+"]=string.char("+m.D+"["+m.I+"]);"+
 m.T+"=("+m.T+"+"+m.D+"["+m.I+"]*(("+m.I+"-1)%"+ne(7)+"+1))%"+ne(65521)+" end");
-body.push("if "+m.T+"~="+m.CHK+" then error(\"MONKFUSCATOR: script was modified\") end");
+body.push("if "+m.T+"~="+m.CHK+" then error(\"YADSAN PAPA: script was modified\") end");
 body.push("local "+m.SRC+"=table.concat("+m.O+")");
-if(level>=2)body.push("if #"+m.SRC+"~="+ne(n)+" then error(\"MONKFUSCATOR: length mismatch\") end");
+if(level>=2)body.push("if #"+m.SRC+"~="+ne(n)+" then error(\"YADSAN PAPA: length mismatch\") end");
 body.push("local "+m.F+","+m.Em+"=(loadstring or load)("+m.SRC+")");
 body.push("if not "+m.F+" then error("+m.Em+") end");
 if(level>=2){
 body.push("local "+m.T+"2=("+m.CHK+"%2)");
-body.push("if "+m.T+"2==("+m.CHK+"%2) then return "+m.F+"(...) else error(\"MONKFUSCATOR: integrity\") end")
+body.push("if "+m.T+"2==("+m.CHK+"%2) then return "+m.F+"(...) else error(\"YADSAN PAPA: integrity\") end")
 }else body.push("return "+m.F+"(...)");
 inner=body.join(o.one?" ":"\n");
 }
@@ -303,11 +303,11 @@ L.push(inner);
 }
 
 var out=L.join(o.one?" ":"\n");
-if(o.hdr)out="--[[ Obfuscated with MONKFUSCATOR Obfuscate - Level "+level+" ]]"+(o.one?" ":"\n")+out;
+if(o.hdr)out="--[[ Obfuscated with YADSAN PAPA Obfuscate - Level "+level+" ]]"+(o.one?" ":"\n")+out;
 return{code:out,seed:cipherSeeds.concat(shuffleSeeds).map(function(x){return x.toString(16).toUpperCase()}).join("").slice(0,10),n:n,level:level,rounds:rounds,chunks:chunkCount}}
 
 var src=$("src"),out=$("out"),go=$("go"),bar=$("bar"),stage=$("stage");
-$("sample").onclick=function(){src.value='local Players = game:GetService("Players")\nlocal player = Players.LocalPlayer\nprint("Hello from MONKFUSCATOR, " .. player.Name)'};
+$("sample").onclick=function(){src.value='local Players = game:GetService("Players")\nlocal player = Players.LocalPlayer\nprint("Hello from YADSAN PAPA, " .. player.Name)'};
 $("clear").onclick=function(){src.value="";out.value="";$("s1").textContent="0";$("s2").textContent="0";$("s3").textContent="-"};
 $("copy").onclick=function(){if(!out.value)return;var b=$("copy");function ok(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy"},1400)}
 function fb(){out.select();try{document.execCommand("copy");ok()}catch(x){}}
