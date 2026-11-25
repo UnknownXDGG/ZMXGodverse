@@ -262,9 +262,9 @@ var h={};
 h.RECON=m.D+"={};"+m.Nn+"=0;for "+m.POS+"=1,#"+m.ORDER+" do local "+m.BLK+"="+m.CH+"["+m.ORDER+"["+m.POS+"]];for "+m.X+"=1,#"+m.BLK+" do "+m.Nn+"="+m.Nn+"+1;"+m.D+"["+m.Nn+"]="+m.BLK+"["+m.X+"] end end;"+m.PC+"="+m.PC+"+1";
 h.UNSH="local "+m.OPND+"="+m.PROGv+"["+m.PC+"+1];"+m.UNSH+"("+m.D+","+m.SS+"["+m.OPND+"],"+m.Nn+");"+m.PC+"="+m.PC+"+2";
 h.UNCI="local "+m.OPND+"="+m.PROGv+"["+m.PC+"+1];"+m.UNCI+"("+m.D+","+m.CS+"["+m.OPND+"],"+m.Nn+");"+m.PC+"="+m.PC+"+2";
-h.VERIFY="local "+m.T+"=0;for "+m.I+"=1,"+m.Nn+" do "+m.T+"=("+m.T+"+"+m.D+"["+m.I+"]*(("+m.I+"-1)%"+ne(7)+"+1))%"+ne(65521)+" end;if "+m.T+"~="+m.CHK+" then error(\"MONKFUSCATOR: script was modified\") end;"+m.PC+"="+m.PC+"+1";
+h.VERIFY="local "+m.T+"=0;for "+m.I+"=1,"+m.Nn+" do "+m.T+"=("+m.T+"+"+m.D+"["+m.I+"]*(("+m.I+"-1)%"+ne(7)+"+1))%"+ne(65521)+" end;if "+m.T+"~="+m.CHK+" then error(\"YADSAN PAPA: script was modified\") end;"+m.PC+"="+m.PC+"+1";
 h.TOSTR="local "+m.O+"={};for "+m.I+"=1,"+m.Nn+" do "+m.O+"["+m.I+"]=string.char("+m.D+"["+m.I+"]) end;"+m.SRC+"=table.concat("+m.O+");"+m.PC+"="+m.PC+"+1";
-h.RUN=m.PC+"="+m.PC+"+1;local "+m.F+","+m.Em+"=(loadstring or load)("+m.SRC+");if not "+m.F+" then error("+m.Em+") end;local "+m.OPND+"2=("+m.CHK+"%2);if "+m.OPND+"2==("+m.CHK+"%2) then return "+m.F+"(...) else error(\"MONKFUSCATOR: integrity\") end";
+h.RUN=m.PC+"="+m.PC+"+1;local "+m.F+","+m.Em+"=(loadstring or load)("+m.SRC+");if not "+m.F+" then error("+m.Em+") end;local "+m.OPND+"2=("+m.CHK+"%2);if "+m.OPND+"2==("+m.CHK+"%2) then return "+m.F+"(...) else error(\"YADSAN PAPA: integrity\") end";
 
 var branches=semOps.map(function(op){return{byte:byteOf[op],code:h[op]}});
 junkBytes.forEach(function(jb,idx){branches.push({byte:jb,code:m.PC+"="+m.PC+"+"+(junkHasOperand[idx]?"2":"1")})});
